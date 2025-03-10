@@ -1,0 +1,42 @@
+plugins {
+	id 'application'
+}
+
+version = '0.0.1'
+compileJava.options.encoding = 'UTF-8'
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+application {
+	// Define the main class for the application.
+	mainClass = 'probability.App'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// This dependency is used by the application.
+	implementation libs.guava
+
+	// Test
+	testImplementation libs.junit.jupiter
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
