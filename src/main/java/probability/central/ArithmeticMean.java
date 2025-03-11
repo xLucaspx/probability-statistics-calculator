@@ -9,22 +9,22 @@ import java.util.List;
 public class ArithmeticMean {
 	/**
 	 * Método que calcula a {@code Média Aritimética} com um conjunto de {@link Number}.
-	 * @param conjuntoNumeros a ser calculado a {@code Média Aritimética}.
+	 * @param setOfNumbers a ser calculado a {@code Média Aritimética}.
 	 * @return a {@code Média Aritimética} referente ao conjunto de {@link Number}.
+	 * @throws ArithmeticException se o conjunto de dados for vazio.
 	 */
-	public static double arithmeticMean(List<Number> conjuntoNumeros) {
-		if (conjuntoNumeros.isEmpty()) {
-			return 0.0;
-		}
-		Double soma = 0.0;
-		int elementsQuantity = conjuntoNumeros.size();
+	public static Double arithmeticMean(Double... setOfNumbers) {
+		Double sum = 0.0;
+		Integer elementsQuantity = setOfNumbers.length;
 		for (int i = 0; i < elementsQuantity; i++) {
 			// Realiza a soma de todos os elementos da lista/conjunto de dados.
-			soma += conjuntoNumeros.get(i).doubleValue();
+			sum += setOfNumbers[i];
 		}
 
-		Double arithmeticMean = soma / elementsQuantity;
-
+		Double arithmeticMean = sum / elementsQuantity;
+		if(Double.isNaN(arithmeticMean)) {
+			throw new ArithmeticException();
+		}
 		return arithmeticMean;
 	}
 }

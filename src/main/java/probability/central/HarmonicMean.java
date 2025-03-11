@@ -12,17 +12,17 @@ public class HarmonicMean {
 	 * Método que calcula a {@code Média Harmônica} com um conjunto de {@link Number}.
 	 * @param setOfNumbers a ser calculado {@code Média Harmônica}
 	 * @return a {@code Média Harmônica} referente ao conjunto de {@link Number}.
+	 * @throws ArithmeticException se o conjunto de dados for vazio.
 	 */
-	public static double harmonicMean(List<Number> setOfNumbers) {
-		if (setOfNumbers.isEmpty()) {
-			return 0.0;
+	public static Double harmonicMean(Double... setOfNumbers) {
+		Integer elementsQuantity = setOfNumbers.length;
+
+		Double resultSomatory = somatoryOfNumbersRisedMinusOne(setOfNumbers);
+
+		Double harmonicMean = elementsQuantity / resultSomatory;
+		if(Double.isNaN(harmonicMean)) {
+			throw new ArithmeticException();
 		}
-		int elementsQuantity = setOfNumbers.size();
-
-		double resultSomatory = somatoryOfNumbersRisedMinusOne(setOfNumbers);
-
-		double harmonicMean = elementsQuantity / resultSomatory;
-
 		return harmonicMean;
 	}
 
@@ -31,9 +31,9 @@ public class HarmonicMean {
 	 * @param setOfNumbers que é utilizado para a soma.
 	 * @return o resultado da soma do {@code somatório}.
 	 */
-	private static Double somatoryOfNumbersRisedMinusOne(List<Number> setOfNumbers) {
+	private static Double somatoryOfNumbersRisedMinusOne(Double[] setOfNumbers) {
 		Double sum = 0.0;
-		for (Number number : setOfNumbers) {
+		for (Double number : setOfNumbers) {
 			//  O somatório x^-1.
 			sum += 1 / number.doubleValue();
 		}

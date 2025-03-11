@@ -12,22 +12,22 @@ public class GeometricMean {
 	 * Método que calcula a {@code Média Geométrica} com um conjunto de {@link Number}.
 	 * @param setOfNumbers a ser calculado {@code Média Geométrica}
 	 * @return a {@code Média Geométrica} referente ao conjunto de {@link Number}.
+	 * @throws ArithmeticException se o conjunto de dados for vazio.
 	 */
-	public static double geometricMean(List<Number> setOfNumbers) {
-		if (setOfNumbers.isEmpty()) {
-			return 0.0;
-		}
-		double multply = 1;
-		int elementsQuantity = setOfNumbers.size();
-		for(Number number : setOfNumbers) {
+	public static Double geometricMean(Double... setOfNumbers) {
+		Double multply = 1.0;
+		Integer elementsQuantity = setOfNumbers.length;
+		for(Double number : setOfNumbers) {
 			// Multiplica todos os elementos da lista/conjunto de números
-			multply *= number.doubleValue();
+			multply *= number;
 		}
 		// Calcula a potência em qual vai ser elevado
-		double power = 1.0/elementsQuantity;
+		Double power = 1.0/elementsQuantity;
 		// Eleva na potencia o resultado a multiplicação
-		double mediaGeometrica = Math.pow(multply, power);
-
+		Double mediaGeometrica = Math.pow(multply, power);
+		if(Double.isNaN(mediaGeometrica)) {
+			throw new ArithmeticException();
+		}
 		return mediaGeometrica;
 	}
 
