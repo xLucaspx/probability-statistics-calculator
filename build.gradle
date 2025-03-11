@@ -1,4 +1,5 @@
 plugins {
+	id 'java'
 	id 'application'
 }
 
@@ -20,7 +21,6 @@ configurations {
 }
 
 application {
-	// Define the main class for the application.
 	mainClass = 'probability.App'
 }
 
@@ -30,10 +30,10 @@ repositories {
 
 dependencies {
 	// This dependency is used by the application.
-	implementation libs.guava
+	implementation 'com.google.guava:guava:33.4.0-jre'
 
 	// Test
-	testImplementation libs.junit.jupiter
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.12.0'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
