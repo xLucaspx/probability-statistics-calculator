@@ -8,6 +8,8 @@ Alunos:
 - Pedro Gonzatti Chiella;
 - [Rodrigo Miotto Slongo](https://github.com/Slongo11).
 
+[Trello](https://trello.com/b/tifTF5Vp).
+
 ## TODO
 
 - [x] Criar repositório;
