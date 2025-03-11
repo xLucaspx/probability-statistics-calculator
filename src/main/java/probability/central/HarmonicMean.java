@@ -1,8 +1,13 @@
-package probability.calculation;
+package probability.central;
 
 import java.util.List;
 
-public class MediaHarmonica {
+/**
+ * Classe que tem a responsábilidade de calcular a {@code Média Harmônica}
+ *
+ * @author Rodrigo Miotto Slongo (Slongo11)
+ */
+public class HarmonicMean {
 	/**
 	 * Método que calcula a {@code Média Harmônica} com um conjunto de {@link Number}.
 	 * @param conjuntoNumeros a ser calculado {@code Média Harmônica}

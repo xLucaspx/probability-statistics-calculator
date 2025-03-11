@@ -1,8 +1,13 @@
-package probability.calculation;
+package probability.central;
 
 import java.util.List;
 
-public class MediaGeometrica {
+/**
+ * Classe que tem a responsábilidade de calcular a {@code Média Geométrica}
+ *
+ * @author Rodrigo Miotto Slongo (Slongo11)
+ */
+public class geometricMean {
 	/**
 	 * Método que calcula a {@code Média Geométrica} com um conjunto de {@link Number}.
 	 * @param conjuntoNumeros a ser calculado {@code Média Geométrica}
