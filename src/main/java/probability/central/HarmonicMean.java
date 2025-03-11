@@ -10,33 +10,33 @@ import java.util.List;
 public class HarmonicMean {
 	/**
 	 * Método que calcula a {@code Média Harmônica} com um conjunto de {@link Number}.
-	 * @param conjuntoNumeros a ser calculado {@code Média Harmônica}
+	 * @param setOfNumbers a ser calculado {@code Média Harmônica}
 	 * @return a {@code Média Harmônica} referente ao conjunto de {@link Number}.
 	 */
-	public static double calculaMediaHarmonica(List<Number> conjuntoNumeros) {
-		if (conjuntoNumeros.isEmpty()) {
+	public static double harmonicMean(List<Number> setOfNumbers) {
+		if (setOfNumbers.isEmpty()) {
 			return 0.0;
 		}
-		int quantidadeDeElementos = conjuntoNumeros.size();
+		int elementsQuantity = setOfNumbers.size();
 
-		double somatorioResultado = somatorioDosNumerosElevadosNaMenosUm(conjuntoNumeros);
+		double resultSomatory = somatoryOfNumbersRisedMinusOne(setOfNumbers);
 
-		double mediaArmonica = quantidadeDeElementos / somatorioResultado;
+		double harmonicMean = elementsQuantity / resultSomatory;
 
-		return mediaArmonica;
+		return harmonicMean;
 	}
 
 	/**
 	 * Realiza a {@code somatório} dos elementos {@code elevados na -1}.
-	 * @param conjuntoNumeros que é utilizado para a soma.
+	 * @param setOfNumbers que é utilizado para a soma.
 	 * @return o resultado da soma do {@code somatório}.
 	 */
-	private static double somatorioDosNumerosElevadosNaMenosUm(List<Number> conjuntoNumeros) {
-		double soma = 0;
-		for (Number conjuntoNumero : conjuntoNumeros) {
+	private static Double somatoryOfNumbersRisedMinusOne(List<Number> setOfNumbers) {
+		Double sum = 0.0;
+		for (Number number : setOfNumbers) {
 			//  O somatório x^-1.
-			soma += 1 / conjuntoNumero.doubleValue();
+			sum += 1 / number.doubleValue();
 		}
-		return soma;
+		return sum;
 	}
 }

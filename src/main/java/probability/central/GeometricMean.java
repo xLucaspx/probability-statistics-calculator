@@ -7,26 +7,26 @@ import java.util.List;
  *
  * @author Rodrigo Miotto Slongo (Slongo11)
  */
-public class geometricMean {
+public class GeometricMean {
 	/**
 	 * Método que calcula a {@code Média Geométrica} com um conjunto de {@link Number}.
-	 * @param conjuntoNumeros a ser calculado {@code Média Geométrica}
+	 * @param setOfNumbers a ser calculado {@code Média Geométrica}
 	 * @return a {@code Média Geométrica} referente ao conjunto de {@link Number}.
 	 */
-	public static double calculaMediaGeometrica(List<Number> conjuntoNumeros) {
-		if (conjuntoNumeros.isEmpty()) {
+	public static double geometricMean(List<Number> setOfNumbers) {
+		if (setOfNumbers.isEmpty()) {
 			return 0.0;
 		}
-		double multiplicacao = 1;
-		int quantidadeDeElementos = conjuntoNumeros.size();
-		for(Number numero : conjuntoNumeros) {
+		double multply = 1;
+		int elementsQuantity = setOfNumbers.size();
+		for(Number number : setOfNumbers) {
 			// Multiplica todos os elementos da lista/conjunto de números
-			multiplicacao *= numero.doubleValue();
+			multply *= number.doubleValue();
 		}
 		// Calcula a potência em qual vai ser elevado
-		double potenciaElevada = 1.0/quantidadeDeElementos;
+		double power = 1.0/elementsQuantity;
 		// Eleva na potencia o resultado a multiplicação
-		double mediaGeometrica = Math.pow(multiplicacao, potenciaElevada);
+		double mediaGeometrica = Math.pow(multply, power);
 
 		return mediaGeometrica;
 	}

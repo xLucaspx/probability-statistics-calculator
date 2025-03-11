@@ -1,7 +1,6 @@
 package probability;
 
-import probability.calculation.MediaGeometrica;
-import probability.calculation.MediaHarmonica;
+import probability.central.MediaGeometrica;
 
 import java.util.List;
 
