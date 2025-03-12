@@ -1,43 +1,44 @@
 package probability.central;
 
 import java.math.BigDecimal;
-import java.util.List;
+
+import static probability.Utils.MATH_CONTEXT;
 
 /**
- * Classe que tem a responsábilidade de calcular a {@code Média Harmônica}
+ * Fornece o método {@link #harmonicMean(BigDecimal...)} para realizar o
+ * cálculo da média harmônica para um conjunto de valores reais.
  *
- * @author Rodrigo Miotto Slongo (Slongo11)
+ * @author Rodrigo Miotto Slongo
  */
 public final class HarmonicMean {
 	private HarmonicMean() {}
 	/**
-	 * Método que calcula a {@code Média Harmônica} com um conjunto de {@link Number}.
-	 * @param setOfNumbers a ser calculado {@code Média Harmônica}
-	 * @return a {@code Média Harmônica} referente ao conjunto de {@link Number}.
+	 * Método que calcula a Média Harmônica com um conjunto de {@link BigDecimal}.
+	 * @param setOfNumbers a ser calculado Média Harmônica
+	 * @return a Média Harmônica referente ao conjunto de {@link BigDecimal}.
 	 * @throws ArithmeticException se o conjunto de dados for vazio.
 	 */
-	public static Double harmonicMean(Double... setOfNumbers) {
+	public static BigDecimal harmonicMean(BigDecimal... setOfNumbers) {
 		Integer elementsQuantity = setOfNumbers.length;
 
-		Double resultSomatory = somatoryOfNumbersRisedMinusOne(setOfNumbers);
+		BigDecimal resultSomatory = inverseNumbersSomatory(setOfNumbers);
 
-		Double harmonicMean = elementsQuantity / resultSomatory;
-		if(Double.isNaN(harmonicMean)) {
-			throw new ArithmeticException();
-		}
-		return harmonicMean;
+		BigDecimal harmonicMean = BigDecimal.valueOf(elementsQuantity).divide(resultSomatory,MATH_CONTEXT);
+		// Utiliza este método para remover os zeros restantes resultantes da precisão
+		return harmonicMean.stripTrailingZeros();
 	}
 
 	/**
-	 * Realiza a {@code somatório} dos elementos {@code elevados na -1}.
+	 * Realiza a somatório dos elementos {@code elevados na -1}.
 	 * @param setOfNumbers que é utilizado para a soma.
-	 * @return o resultado da soma do {@code somatório}.
+	 * @return o resultado da soma do somatório.
 	 */
-	private static Double somatoryOfNumbersRisedMinusOne(Double[] setOfNumbers) {
-		Double sum = 0.0;
-		for (Double number : setOfNumbers) {
+	private static BigDecimal inverseNumbersSomatory(BigDecimal[] setOfNumbers) {
+		BigDecimal sum = BigDecimal.valueOf(0.0);
+		BigDecimal fraction = BigDecimal.valueOf(1);
+		for (BigDecimal number : setOfNumbers) {
 			//  O somatório x^-1.
-			sum += 1 / number.doubleValue();
+			sum = sum.add(fraction.divide(number,MATH_CONTEXT));
 		}
 		return sum;
 	}

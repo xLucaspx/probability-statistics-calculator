@@ -6,15 +6,17 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static probability.Utils.toBigDecimalArray;
 
 /**
  * Testa a classe {@link ArithmeticMean}.
  *
- * @author Rodrigo Miotto Slongo (Slongo11)
+ * @author Rodrigo Miotto Slongo
  */
 public class ArithmeticMeanTest {
 	/**
@@ -25,15 +27,15 @@ public class ArithmeticMeanTest {
 	 */
 	static Stream<Arguments> arithmeticMeanTest1Values() {
 		return Stream.of(
-				Arguments.of(new Double[]{42.0}, 42.0),
-				Arguments.of(new Double[]{5.0, -2.0, 5.0, 2.0}, 2.5),
-				Arguments.of(new Double[]{5.0, 3.9, 2.44, 1.11, 143.99, 2.56}, 26.5),
-				Arguments.of(new Double[]{12.4, 3.9, 12.125, 23.15, 1.119, 42.21, -4.404, 2.0 , 8.0, 1.5}, 10.2)
+				Arguments.of(toBigDecimalArray(42.0), new BigDecimal("42")),
+				Arguments.of(toBigDecimalArray(5.0, -2.0, 5.0, 2.0), new BigDecimal("2.5")),
+				Arguments.of(toBigDecimalArray(5.0, 3.9, 2.44, 1.11, 143.99, 2.56), new BigDecimal("26.5")),
+				Arguments.of(toBigDecimalArray(12.4, 3.9, 12.125, 23.15, 1.119, 42.21, -4.404, 2.0 , 8.0, 1.5), new BigDecimal("10.2"))
 		);
 	}
 
 	/**
-	 * Testa o cálculo da Média Aritimética realizado pelo método {@link ArithmeticMean#arithmeticMean(Double...)}.
+	 * Testa o cálculo da Média Aritmética realizado pelo método {@link ArithmeticMean#arithmeticMean(BigDecimal...)}.
 	 *
 	 * @param in       Dados de entrada.
 	 * @param expected Resultado esperado.
@@ -41,19 +43,17 @@ public class ArithmeticMeanTest {
 	@ParameterizedTest
 	@MethodSource("arithmeticMeanTest1Values")
 	@DisplayName("Deve calcular a média sem modificar os dados de entrada")
-	void arithmeticMeanTest1(Double[] in, Double expected) {
-		Double[] original = Arrays.copyOf(in, in.length);
+	void arithmeticMeanTest1(BigDecimal[] in, BigDecimal expected) {
 
-		Double actual = ArithmeticMean.arithmeticMean(in);
+		BigDecimal actual = ArithmeticMean.arithmeticMean(in);
 
-		assertArrayEquals(in, original);
 		assertEquals(expected, actual);
 	}
 
 	@Test
 	@DisplayName("Deve lançar uma exceção para um array vazio")
 	void arithmeticMeanTest2() {
-		Double[] in = new Double[]{};
+		BigDecimal[] in = new BigDecimal[]{};
 
 		assertThrows(ArithmeticException.class, () -> ArithmeticMean.arithmeticMean(in));
 	}
