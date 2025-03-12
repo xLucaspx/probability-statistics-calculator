@@ -1,12 +1,12 @@
 package probability.central;
 
-import java.util.List;
 /**
  * Classe que tem a responsábilidade de calcular a {@code Média Aritimédica}
  *
  * @author Rodrigo Miotto Slongo (Slongo11)
  */
-public class ArithmeticMean {
+public final class ArithmeticMean {
+	private ArithmeticMean() {}
 	/**
 	 * Método que calcula a {@code Média Aritimética} com um conjunto de {@link Number}.
 	 * @param setOfNumbers a ser calculado a {@code Média Aritimética}.
