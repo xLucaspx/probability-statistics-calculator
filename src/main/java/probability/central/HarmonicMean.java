@@ -1,6 +1,7 @@
 package probability.central;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import static probability.Utils.MATH_CONTEXT;
 
@@ -11,35 +12,38 @@ import static probability.Utils.MATH_CONTEXT;
  * @author Rodrigo Miotto Slongo
  */
 public final class HarmonicMean {
-	private HarmonicMean() {}
-	/**
-	 * Método que calcula a Média Harmônica com um conjunto de {@link BigDecimal}.
-	 * @param setOfNumbers a ser calculado Média Harmônica
-	 * @return a Média Harmônica referente ao conjunto de {@link BigDecimal}.
-	 * @throws ArithmeticException se o conjunto de dados for vazio.
-	 */
-	public static BigDecimal harmonicMean(BigDecimal... setOfNumbers) {
-		Integer elementsQuantity = setOfNumbers.length;
 
-		BigDecimal resultSomatory = inverseNumbersSomatory(setOfNumbers);
-
-		BigDecimal harmonicMean = BigDecimal.valueOf(elementsQuantity).divide(resultSomatory,MATH_CONTEXT);
-		// Utiliza este método para remover os zeros restantes resultantes da precisão
-		return harmonicMean.stripTrailingZeros();
+	private HarmonicMean() {
 	}
 
 	/**
-	 * Realiza a somatório dos elementos {@code elevados na -1}.
-	 * @param setOfNumbers que é utilizado para a soma.
-	 * @return o resultado da soma do somatório.
+	 * Realiza o cálculo da media harmônica do conjunto de valores passado
+	 * como argumento.
+	 *
+	 * @param values Conjunto sobre o qual ocorrerá o cálculo; não pode ser vazio.
+	 * @return Valor correspondente à média harmônica do conjunto.
+	 * @throws ArithmeticException Se o conjunto de dados informado for vazio.
 	 */
-	private static BigDecimal inverseNumbersSomatory(BigDecimal[] setOfNumbers) {
-		BigDecimal sum = BigDecimal.valueOf(0.0);
-		BigDecimal fraction = BigDecimal.valueOf(1);
-		for (BigDecimal number : setOfNumbers) {
-			//  O somatório x^-1.
-			sum = sum.add(fraction.divide(number,MATH_CONTEXT));
-		}
-		return sum;
+	public static BigDecimal harmonicMean(BigDecimal... values) {
+		BigDecimal length = BigDecimal.valueOf(values.length);
+
+		BigDecimal somatoryResult = inverseNumbersSomatory(values);
+
+		return length.divide(somatoryResult, MATH_CONTEXT).stripTrailingZeros();
+	}
+
+	/**
+	 * Realiza a somatório dos elementos na potência {@code -1}; equivalente à
+	 * &sum; {@code 1 / values[i]};
+	 *
+	 * @param values Conjunto sobre o qual ocorrerá o cálculo.
+	 * @return O resultado da soma do somatório.
+	 */
+	private static BigDecimal inverseNumbersSomatory(BigDecimal[] values) {
+		return Arrays.stream(values).reduce(BigDecimal.valueOf(0.0), HarmonicMean::addFraction);
+	}
+
+	private static BigDecimal addFraction(BigDecimal sum, BigDecimal n) {
+		return sum.add(BigDecimal.valueOf(1).divide(n, MATH_CONTEXT));
 	}
 }

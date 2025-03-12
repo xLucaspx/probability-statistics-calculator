@@ -5,29 +5,32 @@ import java.math.BigDecimal;
 import static probability.Utils.MATH_CONTEXT;
 
 /**
- * Fornece o método {@link #arithmeticMean(BigDecimal...)}para realizar o
+ * Fornece o método {@link #arithmeticMean(BigDecimal...)} para realizar o
  * cálculo da média aritmética para um conjunto de valores reais.
  *
  * @author Rodrigo Miotto Slongo
  */
 public final class ArithmeticMean {
-	private ArithmeticMean() {}
+
+	private ArithmeticMean() {
+	}
+
 	/**
-	 * Método que calcula a {@code Média Aritmética} com um conjunto de {@link Number}.
-	 * @param setOfNumbers a ser calculado a {@code Média Aritmética}.
-	 * @return a {@code Média Aritmética} referente ao conjunto de {@link Number}.
-	 * @throws ArithmeticException se o conjunto de dados for vazio.
+	 * Realiza o cálculo da media aritmética do conjunto de valores passado
+	 * como argumento.
+	 *
+	 * @param values Conjunto sobre o qual ocorrerá o cálculo; não pode ser vazio.
+	 * @return Valor correspondente à média aritmética do conjunto.
+	 * @throws ArithmeticException Se o conjunto de dados informado for vazio.
 	 */
-	public static BigDecimal arithmeticMean(BigDecimal... setOfNumbers) {
-		BigDecimal sum = BigDecimal.valueOf(0);
-		Integer elementsQuantity = setOfNumbers.length;
-		for (BigDecimal number : setOfNumbers) {
-			// Realiza a soma de todos os elementos da lista/conjunto de dados.
+	public static BigDecimal arithmeticMean(BigDecimal... values) {
+		BigDecimal sum = BigDecimal.valueOf(0.0);
+		BigDecimal length = BigDecimal.valueOf(values.length);
+
+		for (BigDecimal number : values) {
 			sum = sum.add(number);
 		}
 
-		BigDecimal arithmeticMean = sum.divide(BigDecimal.valueOf(elementsQuantity),MATH_CONTEXT);
-
-		return arithmeticMean.stripTrailingZeros();
+		return sum.divide(length, MATH_CONTEXT).stripTrailingZeros();
 	}
 }
