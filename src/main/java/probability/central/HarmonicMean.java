@@ -1,5 +1,6 @@
 package probability.central;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -7,7 +8,8 @@ import java.util.List;
  *
  * @author Rodrigo Miotto Slongo (Slongo11)
  */
-public class HarmonicMean {
+public final class HarmonicMean {
+	private HarmonicMean() {}
 	/**
 	 * Método que calcula a {@code Média Harmônica} com um conjunto de {@link Number}.
 	 * @param setOfNumbers a ser calculado {@code Média Harmônica}

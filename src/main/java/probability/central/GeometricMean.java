@@ -7,7 +7,8 @@ import java.util.List;
  *
  * @author Rodrigo Miotto Slongo (Slongo11)
  */
-public class GeometricMean {
+public final class GeometricMean {
+	private GeometricMean() {}
 	/**
 	 * Método que calcula a {@code Média Geométrica} com um conjunto de {@link Number}.
 	 * @param setOfNumbers a ser calculado {@code Média Geométrica}
