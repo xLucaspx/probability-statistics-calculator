@@ -14,7 +14,7 @@ public final class Median {
 	}
 
 	/**
-	 * Realiza o calculo da mediana do conjunto de valores passado
+	 * Realiza o cálculo da mediana do conjunto de valores passado
 	 * como argumento.
 	 *
 	 * @param values Conjunto sobre o qual ocorrerá o cálculo; não pode ser vazio.
