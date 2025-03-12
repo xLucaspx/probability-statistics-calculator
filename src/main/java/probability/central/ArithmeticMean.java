@@ -1,30 +1,33 @@
 package probability.central;
 
+import java.math.BigDecimal;
+
+import static probability.Utils.MATH_CONTEXT;
+
 /**
- * Classe que tem a responsábilidade de calcular a {@code Média Aritimédica}
+ * Fornece o método {@link #arithmeticMean(BigDecimal...)}para realizar o
+ * cálculo da média aritmética para um conjunto de valores reais.
  *
- * @author Rodrigo Miotto Slongo (Slongo11)
+ * @author Rodrigo Miotto Slongo
  */
 public final class ArithmeticMean {
 	private ArithmeticMean() {}
 	/**
-	 * Método que calcula a {@code Média Aritimética} com um conjunto de {@link Number}.
-	 * @param setOfNumbers a ser calculado a {@code Média Aritimética}.
-	 * @return a {@code Média Aritimética} referente ao conjunto de {@link Number}.
+	 * Método que calcula a {@code Média Aritmética} com um conjunto de {@link Number}.
+	 * @param setOfNumbers a ser calculado a {@code Média Aritmética}.
+	 * @return a {@code Média Aritmética} referente ao conjunto de {@link Number}.
 	 * @throws ArithmeticException se o conjunto de dados for vazio.
 	 */
-	public static Double arithmeticMean(Double... setOfNumbers) {
-		Double sum = 0.0;
+	public static BigDecimal arithmeticMean(BigDecimal... setOfNumbers) {
+		BigDecimal sum = BigDecimal.valueOf(0);
 		Integer elementsQuantity = setOfNumbers.length;
-		for (int i = 0; i < elementsQuantity; i++) {
+		for (BigDecimal number : setOfNumbers) {
 			// Realiza a soma de todos os elementos da lista/conjunto de dados.
-			sum += setOfNumbers[i];
+			sum = sum.add(number);
 		}
 
-		Double arithmeticMean = sum / elementsQuantity;
-		if(Double.isNaN(arithmeticMean)) {
-			throw new ArithmeticException();
-		}
-		return arithmeticMean;
+		BigDecimal arithmeticMean = sum.divide(BigDecimal.valueOf(elementsQuantity),MATH_CONTEXT);
+
+		return arithmeticMean.stripTrailingZeros();
 	}
 }

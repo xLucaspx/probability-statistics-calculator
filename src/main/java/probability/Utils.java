@@ -1,6 +1,8 @@
 package probability;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -13,6 +15,12 @@ public final class Utils {
 
 	private Utils() {
 	}
+
+	/**
+	 * {@link MathContext} utilizado para divisões com precisão de 15 casa decimais
+	 * referente ao método {@link BigDecimal#divide(BigDecimal, MathContext)}.
+	 */
+	public static final MathContext MATH_CONTEXT = new MathContext(15, RoundingMode.HALF_UP);
 
 	/**
 	 * Retorna um array de {@link BigDecimal} contendo os mesmos elementos do array
