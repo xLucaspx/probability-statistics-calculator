@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.NullSource;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -37,11 +38,18 @@ class MedianTest {
 	}
 
 	/**
-	 * Testa o cálculo da mediana realizado pelo método {@link Median#median(Double...)}.
+	 * Fornece os argumentos de entrada para {@link #medianTest3}.
 	 *
-	 * @param in       Dados de entrada.
-	 * @param expected Resultado esperado.
+	 * @return Stream de argumentos onde cada elemento contém o array de entrada.
 	 */
+	static Stream<Arguments> medianTest3Values() {
+		return Stream.of(
+			Arguments.of((Object) new Double[]{null, 2.0, null}),
+			Arguments.of((Object) new Double[]{1.0, 3.0, null, null, 6.0}),
+			Arguments.of((Object) new Double[]{12.4, 3.9, null, 23.15, 1.119, 42.21})
+		);
+	}
+
 	@ParameterizedTest
 	@MethodSource("medianTest1Values")
 	@DisplayName("Deve calcular a mediana sem modificar os dados de entrada")
@@ -55,10 +63,17 @@ class MedianTest {
 	}
 
 	@Test
-	@DisplayName("Deve lançar uma exceção para um array vazio")
+	@DisplayName("Deve lançar exceção para array vazio")
 	void medianTest2() {
 		Double[] in = new Double[]{};
-
 		assertThrows(IndexOutOfBoundsException.class, () -> Median.median(in));
+	}
+
+	@ParameterizedTest
+	@NullSource
+	@MethodSource("medianTest3Values")
+	@DisplayName("Deve lançar exceção para array nulo ou com elementos nulos")
+	void medianTest3(Double... in) {
+		assertThrows(NullPointerException.class, () -> Median.median(in));
 	}
 }
