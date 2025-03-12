@@ -1,5 +1,6 @@
 package probability;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -14,6 +15,22 @@ public final class Utils {
 	}
 
 	/**
+	 * Retorna um array de {@link BigDecimal} contendo os mesmos elementos do array
+	 * de {@link Number} passado como argumento, porém convertidos para o novo formato.
+	 *
+	 * @param values O array de referência.
+	 * @return Novo array contendo os mesmos elementos, convertidos para {@link BigDecimal}.
+	 * @throws IllegalArgumentException Se o conjunto de dados informado for nulo.
+	 * @throws NullPointerException     Se o conjunto de dados informado contiver
+	 *                                  valores nulos.
+	 */
+	public static <T extends Number> BigDecimal[] toBigDecimalArray(T... values) {
+		return Arrays.stream(values)
+			.map(n -> new BigDecimal(n.toString()))
+			.toArray(BigDecimal[]::new);
+	}
+
+	/**
 	 * Encontra o maior valor em um conjunto de dados.
 	 *
 	 * @param values Array de referência.
@@ -23,7 +40,7 @@ public final class Utils {
 	 * @throws NullPointerException     Se o conjunto de dados informado contiver
 	 *                                  valores nulos.
 	 */
-	public static Double max(Double... values) {
+	public static BigDecimal max(BigDecimal... values) {
 		return Arrays.stream(values).max(Comparator.naturalOrder()).orElse(null);
 	}
 
@@ -37,7 +54,7 @@ public final class Utils {
 	 * @throws NullPointerException     Se o conjunto de dados informado contiver
 	 *                                  valores nulos.
 	 */
-	public static Double min(Double... values) {
+	public static BigDecimal min(BigDecimal... values) {
 		return Arrays.stream(values).min(Comparator.naturalOrder()).orElse(null);
 	}
 
@@ -47,8 +64,8 @@ public final class Utils {
 	 * @throws NullPointerException Se o array passado como argumento for nulo
 	 *                              ou contiver valores nulos.
 	 */
-	public static Double[] sort(Double... values) {
-		Double[] sorted = Arrays.copyOf(values, values.length);
+	public static BigDecimal[] sort(BigDecimal... values) {
+		BigDecimal[] sorted = Arrays.copyOf(values, values.length);
 		mergeSort(sorted, sorted.length);
 		return sorted;
 	}
@@ -57,15 +74,15 @@ public final class Utils {
 	 * @param data  O array a ser ordenado (referência).
 	 * @param count Quantidade de elementos deste array.
 	 */
-	private static void mergeSort(Double[] data, Integer count) {
+	private static void mergeSort(BigDecimal[] data, Integer count) {
 		if (count <= 1) {
 			return;
 		}
 
 		int half = count / 2;
-		Double[] sub1 = new Double[half];
+		BigDecimal[] sub1 = new BigDecimal[half];
 		int sub2Size = count - half;
-		Double[] sub2 = new Double[sub2Size];
+		BigDecimal[] sub2 = new BigDecimal[sub2Size];
 
 		System.arraycopy(data, 0, sub1, 0, half);
 		System.arraycopy(data, half, sub2, 0, sub2Size);
@@ -78,7 +95,7 @@ public final class Utils {
 		int k = 0; // int k -> data index
 
 		while (i < half && j < sub2Size) {
-			if (sub1[i] <= sub2[j]) {
+			if (sub1[i].compareTo(sub2[j]) <= 0) {
 				data[k++] = sub1[i++];
 				continue;
 			}
