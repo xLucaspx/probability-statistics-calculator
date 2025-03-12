@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Testa a classe de utiidades {@link Utils}.
@@ -35,6 +36,23 @@ class UtilsTest {
 	}
 
 	/**
+	 * Fornece os argumentos de entrada para {@link #minMaxTest1}.
+	 *
+	 * @return Stream de argumentos onde cada elemento contém, respectivamente,
+	 * o array de entrada, o valor mínimo e o valor máximo esperados.
+	 */
+	static Stream<Arguments> minMaxTest1Values() {
+		return Stream.of(
+			Arguments.of(new Double[]{42.0}, 42.0, 42.0),
+			Arguments.of(new Double[]{1.0, 2.0, 4.0, 5.5}, 1.0, 5.5),
+			Arguments.of(new Double[]{5.0, 3.9, 2.44, 1.11}, 1.11, 5.0),
+			Arguments.of(new Double[]{12.4, 3.9, 12.15, 1.119, 42.21}, 1.119, 42.21),
+			Arguments.of(new Double[]{12.4, 3.9, -2.15, 3.9, 3.9, -4.7}, -4.7, 12.4),
+			Arguments.of(new Double[]{-2.15, -3.9, -27.92}, -27.92, -2.15)
+		);
+	}
+
+	/**
 	 * Testa a ordenação de método {@link Utils#sort(Double...)}. Verifica se o
 	 * array retornado está ordenado corretamente e se o array original não foi
 	 * modificado pelo método.
@@ -52,5 +70,16 @@ class UtilsTest {
 
 		assertArrayEquals(in, original);
 		assertArrayEquals(expected, actual);
+	}
+
+	@ParameterizedTest
+	@MethodSource("minMaxTest1Values")
+	@DisplayName("Deve retornar o menor e o maior valor do array")
+	void minMaxTest1(Double[] in, Double expectedMin, Double expectedMax) {
+		Double actualMin = Utils.min(in);
+		Double actualMax = Utils.max(in);
+
+		assertEquals(expectedMin, actualMin);
+		assertEquals(expectedMax, actualMax);
 	}
 }

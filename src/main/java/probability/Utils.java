@@ -1,16 +1,51 @@
 package probability;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * Fornece métodos utilitários para a manipulação de dados.
  *
  * @author Lucas da Paz
  */
-public class Utils {
+public final class Utils {
+
+	private Utils() {
+	}
+
+	/**
+	 * Encontra o maior valor em um conjunto de dados.
+	 *
+	 * @param values Array de referência.
+	 * @return Maior valor encontrado no array, ou {@code null} caso
+	 * o array seja nulo ou não contenha elementos.
+	 * @throws IllegalArgumentException Se o conjunto de dados informado for nulo.
+	 * @throws NullPointerException     Se o conjunto de dados informado contiver
+	 *                                  valores nulos.
+	 */
+	public static Double max(Double... values) {
+		return Arrays.stream(values).max(Comparator.naturalOrder()).orElse(null);
+	}
+
+	/**
+	 * Encontra o menor valor em um conjunto de dados.
+	 *
+	 * @param values Array de referência.
+	 * @return Menor valor encontrado no array, ou {@code null} caso
+	 * o array seja nulo ou não contenha elementos.
+	 * @throws IllegalArgumentException Se o conjunto de dados informado for nulo.
+	 * @throws NullPointerException     Se o conjunto de dados informado contiver
+	 *                                  valores nulos.
+	 */
+	public static Double min(Double... values) {
+		return Arrays.stream(values).min(Comparator.naturalOrder()).orElse(null);
+	}
 
 	/**
 	 * Ordena o conteúdo do array utilizando o algoritmo merge sort.
+	 *
+	 * @throws NullPointerException Se o array passado como argumento for nulo
+	 *                              ou contiver valores nulos.
 	 */
 	public static Double[] sort(Double... values) {
 		Double[] sorted = Arrays.copyOf(values, values.length);
