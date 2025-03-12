@@ -9,7 +9,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.math.BigDecimal;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static probability.Utils.toBigDecimalArray;
 
 /**
@@ -26,22 +27,16 @@ public class HarmonicMeanTest {
 	 */
 	static Stream<Arguments> harmonicMeanTest1Values() {
 		return Stream.of(
-				Arguments.of(toBigDecimalArray(42.0), new BigDecimal("42")),
-				Arguments.of(toBigDecimalArray(3.0, 2.0, 10.0), new BigDecimal("3.21428571428572")),
-				Arguments.of(toBigDecimalArray(4.0, 2.0, 8.0), new BigDecimal("3.42857142857143")),
-				Arguments.of(toBigDecimalArray(5.0, 3.9, 2.44, 1.11, 143.99, 2.56), new BigDecimal ("2.77172470364753"))
+			Arguments.of(toBigDecimalArray(42.0), new BigDecimal("42")),
+			Arguments.of(toBigDecimalArray(3.0, 2.0, 10.0), new BigDecimal("3.21428571428572")),
+			Arguments.of(toBigDecimalArray(4.0, 2.0, 8.0), new BigDecimal("3.42857142857143")),
+			Arguments.of(toBigDecimalArray(5.0, 3.9, 2.44, 1.11, 143.99, 2.56), new BigDecimal("2.77172470364753"))
 		);
 	}
 
-	/**
-	 * Testa o cálculo da Média Geométrica realizado pelo método {@link HarmonicMean#harmonicMean(BigDecimal...)}.
-	 *
-	 * @param in       Dados de entrada.
-	 * @param expected Resultado esperado.
-	 */
 	@ParameterizedTest
 	@MethodSource("harmonicMeanTest1Values")
-	@DisplayName("Deve calcular a média sem modificar os dados de entrada")
+	@DisplayName("Deve calcular a média harmônica")
 	void harmonicMeanTest1(BigDecimal[] in, BigDecimal expected) {
 		BigDecimal actual = HarmonicMean.harmonicMean(in);
 
@@ -55,5 +50,4 @@ public class HarmonicMeanTest {
 
 		assertThrows(ArithmeticException.class, () -> GeometricMean.geometricMean(in));
 	}
-
 }

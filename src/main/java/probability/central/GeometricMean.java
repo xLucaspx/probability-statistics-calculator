@@ -1,8 +1,6 @@
 package probability.central;
 
 
-import com.google.common.math.BigDecimalMath;
-
 import java.math.BigDecimal;
 
 import static probability.Utils.MATH_CONTEXT;
@@ -14,27 +12,29 @@ import static probability.Utils.MATH_CONTEXT;
  * @author Rodrigo Miotto Slongo
  */
 public final class GeometricMean {
-	private GeometricMean() {}
-	/**
-	 * Método que calcula a code Média Geométrica com um conjunto de {@link BigDecimal}.
-	 * @param setOfNumbers a ser calculado code Média Geométrica
-	 * @return a Média Geométrica referente ao conjunto de {@link BigDecimal}.
-	 * @throws ArithmeticException se o conjunto de dados for vazio.
-	 */
-	public static BigDecimal geometricMean(BigDecimal... setOfNumbers) {
-		BigDecimal multply = BigDecimal.valueOf(1);
-		Integer elementsQuantity = setOfNumbers.length;
-		for(BigDecimal number : setOfNumbers) {
-			// Multiplica todos os elementos da lista/conjunto de números
-			multply = multply.multiply(number);
-		}
-		// Calcula a potência em qual vai ser elevado
-		BigDecimal one = BigDecimal.valueOf(1);
-		BigDecimal power =one.divide(BigDecimal.valueOf(elementsQuantity),MATH_CONTEXT);
-		// Eleva na potência o resultado a multiplicação
-		BigDecimal mediaGeometrica = new BigDecimal(Math.pow(multply.doubleValue(), power.doubleValue()), MATH_CONTEXT);
 
-		return mediaGeometrica.stripTrailingZeros();
+	private GeometricMean() {
 	}
 
+	/**
+	 * Realiza o cálculo da media geométrica do conjunto de valores passado
+	 * como argumento.
+	 *
+	 * @param values Conjunto sobre o qual ocorrerá o cálculo; não pode ser vazio.
+	 * @return Valor correspondente à média geométrica do conjunto.
+	 * @throws ArithmeticException Se o conjunto de dados informado for vazio.
+	 */
+	public static BigDecimal geometricMean(BigDecimal... values) {
+		BigDecimal multply = BigDecimal.valueOf(1.0);
+		BigDecimal length = BigDecimal.valueOf(values.length);
+
+		for (BigDecimal number : values) {
+			multply = multply.multiply(number);
+		}
+
+		double oneOverN = BigDecimal.valueOf(1.0).divide(length, MATH_CONTEXT).doubleValue();
+		double geometricMean = Math.pow(multply.doubleValue(), oneOverN);
+
+		return new BigDecimal(String.valueOf(geometricMean), MATH_CONTEXT).stripTrailingZeros();
+	}
 }
