@@ -1,10 +1,12 @@
 package probability.dispersion;
 
+import java.math.BigDecimal;
+
 import static probability.Utils.max;
 import static probability.Utils.min;
 
 /**
- * Fornece o método {@link #amplitude(Double...)} para realizar
+ * Fornece o método {@link #amplitude(BigDecimal...)} para realizar
  * o cálculo da amplitude para um conjunto de valores reais.
  *
  * @author Lucas da Paz
@@ -25,14 +27,14 @@ public final class Amplitude {
 	 * @throws NullPointerException     Se o conjunto de dados informado contiver
 	 *                                  valores nulos.
 	 */
-	public static Double amplitude(Double... values) {
+	public static BigDecimal amplitude(BigDecimal... values) {
 		if (values == null || values.length == 0) {
 			throw new IllegalArgumentException("O conjunto de dados informado não pode ser nulo ou vazio!");
 		}
 
-		Double max = max(values);
-		Double min = min(values);
+		BigDecimal max = max(values);
+		BigDecimal min = min(values);
 
-		return max - min;
+		return max.subtract(min);
 	}
 }
