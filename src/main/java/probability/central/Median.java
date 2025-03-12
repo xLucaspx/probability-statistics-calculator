@@ -8,7 +8,10 @@ import static probability.Utils.sort;
  *
  * @author Lucas da Paz
  */
-public class Median {
+public final class Median {
+
+	private Median() {
+	}
 
 	/**
 	 * Realiza o calculo da mediana do conjunto de valores passado
@@ -17,6 +20,8 @@ public class Median {
 	 * @param values Conjunto sobre o qual ocorrerá o cálculo; não pode ser vazio.
 	 * @return Valor correspondente à mediana do conjunto.
 	 * @throws IndexOutOfBoundsException Se o conjunto de dados informado for vazio.
+	 * @throws NullPointerException      Se o conjunto de dados informado for nulo ou
+	 *                                   contiver valores nulos.
 	 */
 	public static Double median(Double... values) {
 		int length = values.length;
