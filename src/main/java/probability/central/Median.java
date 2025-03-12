@@ -1,32 +1,38 @@
 package probability.central;
 
+import java.math.BigDecimal;
+
 import static probability.Utils.sort;
 
 /**
- * Fornece o método {@link #median(Double...)} para realizar o
- * cálculo da mediana para um conjunto de valores reais.
+ * Fornece o método {@link #median(BigDecimal...)} para realizar
+ * o cálculo da mediana para um conjunto de valores reais.
  *
  * @author Lucas da Paz
  */
-public class Median {
+public final class Median {
+
+	private Median() {
+	}
 
 	/**
-	 * Realiza o calculo da mediana do conjunto de valores passado
+	 * Realiza o cálculo da mediana do conjunto de valores passado
 	 * como argumento.
 	 *
 	 * @param values Conjunto sobre o qual ocorrerá o cálculo; não pode ser vazio.
 	 * @return Valor correspondente à mediana do conjunto.
 	 * @throws IndexOutOfBoundsException Se o conjunto de dados informado for vazio.
+	 * @throws NullPointerException      Se o conjunto de dados informado for nulo ou
+	 *                                   contiver valores nulos.
 	 */
-	public static Double median(Double... values) {
+	public static BigDecimal median(BigDecimal... values) {
 		int length = values.length;
 
-		Double[] sorted = sort(values);
+		BigDecimal[] sorted = sort(values);
 
 		if (length % 2 == 0) {
 			return medianEven(sorted);
 		}
-
 		return medianOdd(sorted);
 	}
 
@@ -47,11 +53,11 @@ public class Median {
 	 * @param values Conjunto de valores reais ordenados com número par de elementos.
 	 * @return A mediana para o conjunto passado como argumento.
 	 */
-	private static Double medianEven(Double[] values) {
+	private static BigDecimal medianEven(BigDecimal... values) {
 		int i = values.length / 2;
-		Double n1 = values[i - 1];
-		Double n2 = values[i];
-		return (n1 + n2) / 2;
+		BigDecimal n1 = values[i - 1];
+		BigDecimal n2 = values[i];
+		return n1.add(n2).divide(BigDecimal.valueOf(2));
 	}
 
 	/**
@@ -69,7 +75,7 @@ public class Median {
 	 * @param values Conjunto de valores reais ordenados com número ímpar de elementos.
 	 * @return A mediana para o conjunto passado como argumento.
 	 */
-	private static Double medianOdd(Double[] values) {
+	private static BigDecimal medianOdd(BigDecimal... values) {
 		int i = values.length / 2;
 		return values[i];
 	}

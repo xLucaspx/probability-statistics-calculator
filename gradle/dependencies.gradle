@@ -1,0 +1,15 @@
+ext {
+	versions = [
+		guava: "33.4.0-jre",
+		junit: "5.12.0"
+	]
+}
+
+dependencies {
+	// This dependency is used by the application.
+	implementation "com.google.guava:guava:${versions.guava}"
+
+	// Test
+	testImplementation "org.junit.jupiter:junit-jupiter:${versions.junit}"
+	testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+}
