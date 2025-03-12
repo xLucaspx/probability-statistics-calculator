@@ -1,6 +1,7 @@
 plugins {
 	id 'java'
 	id 'application'
+	id 'jacoco'
 }
 
 version = '0.0.1'
@@ -39,4 +40,13 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}
+
+tasks.named('jacocoTestReport') {
+	dependsOn test
+	reports {
+		xml.required = false
+		csv.required = false
+	}
 }
