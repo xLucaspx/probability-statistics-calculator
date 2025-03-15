@@ -17,7 +17,7 @@ public final class GeometricMean {
 	}
 
 	/**
-	 * Realiza o cálculo da media geométrica do conjunto de valores passado
+	 * Realiza o cálculo da média geométrica do conjunto de valores passado
 	 * como argumento.
 	 *
 	 * @param values Conjunto sobre o qual ocorrerá o cálculo; não pode ser vazio.
