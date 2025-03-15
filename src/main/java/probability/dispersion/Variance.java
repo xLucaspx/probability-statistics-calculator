@@ -8,7 +8,7 @@ import static probability.Utils.MATH_CONTEXT;
 
 /**
  * Fornece o método {@link #variance(BigDecimal...)} para realizar o
- * cálculo da média aritmética para um conjunto de valores reais.
+ * cálculo da variância para um conjunto de valores reais.
  *
  * @author Rodrigo Miotto Slongo
  */
