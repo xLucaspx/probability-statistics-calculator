@@ -17,7 +17,7 @@ public final class HarmonicMean {
 	}
 
 	/**
-	 * Realiza o cálculo da media harmônica do conjunto de valores passado
+	 * Realiza o cálculo da média harmônica do conjunto de valores passado
 	 * como argumento.
 	 *
 	 * @param values Conjunto sobre o qual ocorrerá o cálculo; não pode ser vazio.
