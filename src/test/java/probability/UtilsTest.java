@@ -54,6 +54,22 @@ class UtilsTest {
 		);
 	}
 
+	/**
+	 * Fornece os argumentos de entrada para {@link #containsNonPositiveValuesTest1}.
+	 *
+	 * @return Stream de argumentos onde cada elemento contém, respectivamente,
+	 * o array de entrada e o resultado esperado.
+	 */
+	static Stream<Arguments> containsNonPositiveValuesTest1Values() {
+		return Stream.of(
+			Arguments.of(toBigDecimalArray(42L), false),
+			Arguments.of(toBigDecimalArray(1.0, 2.0f, 4.0, 5.5f), false),
+			Arguments.of(toBigDecimalArray(5, -3.9, -2.44f, 1.11), true),
+			Arguments.of(toBigDecimalArray(12.4, 0, 12.15), true),
+			Arguments.of(toBigDecimalArray(12.4, 3.9, -2.15, 0.0, 0, -4.7), true)
+		);
+	}
+
 	@ParameterizedTest
 	@MethodSource("sortTest1Values")
 	@DisplayName("Deve ordenar arrays corretamente sem modificar o original")
@@ -73,5 +89,14 @@ class UtilsTest {
 
 		assertEquals(expectedMin, actualMin);
 		assertEquals(expectedMax, actualMax);
+	}
+
+	@ParameterizedTest
+	@MethodSource("containsNonPositiveValuesTest1Values")
+	@DisplayName("Deve retornar se o array informado possui elementos não positivos")
+	void containsNonPositiveValuesTest1(BigDecimal[] in, boolean expected) {
+		boolean actual = Utils.containsNonPositiveValues(in);
+
+		assertEquals(expected, actual);
 	}
 }

@@ -54,6 +54,18 @@ public final class Utils {
 	}
 
 	/**
+	 * Verifica se o conjunto de valores passados como argumento contém algum
+	 * número não positivo, i.e., menor ou igual a zero.
+	 *
+	 * @param values O array de referência.
+	 * @return {@code true} caso o array contenha pelo menos um valor menor ou
+	 * igual a zero, {@code false} caso contrário.
+	 */
+	public static boolean containsNonPositiveValues(BigDecimal... values) {
+		return Arrays.stream(values).anyMatch(x -> x.compareTo(BigDecimal.valueOf(0.0)) <= 0);
+	}
+
+	/**
 	 * Encontra o maior valor em um conjunto de dados.
 	 *
 	 * @param values Array de referência.

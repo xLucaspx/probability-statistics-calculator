@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 
 import static probability.Utils.MATH_CONTEXT;
+import static probability.Utils.containsNonPositiveValues;
 
 /**
  * Fornece o método {@link #harmonicMean(BigDecimal...)} para realizar o
@@ -25,7 +26,7 @@ public final class HarmonicMean {
 	 * @throws ArithmeticException Se o conjunto de dados informado for vazio.
 	 */
 	public static BigDecimal harmonicMean(BigDecimal... values) {
-		if (Arrays.stream(values).anyMatch(x -> x.compareTo(BigDecimal.valueOf(0.0)) <= 0)) {
+		if (containsNonPositiveValues(values)) {
 			throw new ArithmeticException("A média harmônica só é definida para números reais positivos");
 		}
 
@@ -44,9 +45,7 @@ public final class HarmonicMean {
 	 * @return O resultado da soma do somatório.
 	 */
 	private static BigDecimal inverseNumbersSummation(BigDecimal[] values) {
-		return Arrays.stream(values)
-			.filter(v -> !(v.compareTo(BigDecimal.valueOf(0.0)) == 0))
-			.reduce(BigDecimal.valueOf(0.0), HarmonicMean::addFraction);
+		return Arrays.stream(values).reduce(BigDecimal.valueOf(0.0), HarmonicMean::addFraction);
 	}
 
 	private static BigDecimal addFraction(BigDecimal sum, BigDecimal n) {

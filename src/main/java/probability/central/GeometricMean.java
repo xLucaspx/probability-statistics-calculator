@@ -2,9 +2,9 @@ package probability.central;
 
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 
 import static probability.Utils.MATH_CONTEXT;
+import static probability.Utils.containsNonPositiveValues;
 
 /**
  * Fornece o método {@link #geometricMean(BigDecimal...)} para realizar o
@@ -27,7 +27,7 @@ public final class GeometricMean {
 	 *                             o conjunto contiver valores não positivos.
 	 */
 	public static BigDecimal geometricMean(BigDecimal... values) {
-		if (Arrays.stream(values).anyMatch(x -> x.compareTo(BigDecimal.valueOf(0.0)) <= 0)) {
+		if (containsNonPositiveValues(values)) {
 			throw new ArithmeticException("A média geométrica só é definida para números reais positivos");
 		}
 
