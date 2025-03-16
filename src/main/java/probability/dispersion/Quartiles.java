@@ -60,5 +60,9 @@ public final class Quartiles {
 		Quartile(String percentValue) {
 			this.percentValue = new BigDecimal(percentValue);
 		}
+
+		public BigDecimal percentValue() {
+			return percentValue;
+		}
 	}
 }

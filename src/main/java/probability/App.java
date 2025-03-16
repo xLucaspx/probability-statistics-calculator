@@ -2,12 +2,124 @@ package probability;
 
 import data.CityWeatherData;
 import data.CityWeatherReader;
+import data.MonthlyWeatherData;
+import probability.calculator.ProbabilityCalculator;
+import probability.calculator.PucrsCalculator;
+import probability.calculator.StdCalculator;
+import probability.dispersion.Quartiles;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class App {
+
+	private static final ProbabilityCalculator PUCRS_CALC = new PucrsCalculator();
+	private static final ProbabilityCalculator STD_CALC = new StdCalculator();
+	private static final List<CityWeatherData> DATA = CityWeatherReader.getDataFromFile();
+
 	public static void main(String... args) {
-		List<CityWeatherData> data = CityWeatherReader.getDataFromFile();
-		System.out.printf("Total de cidades: %s%n", data.size());
+		header();
+		dataPerCountry();
+	}
+
+	private static void header() {
+		System.out.println("\n--- Probabilidade e Estatística---\n");
+		System.out.printf("Base de dados: meteorológicos | Total de cidades: %s%n%n", DATA.size());
+	}
+
+	private static void dataPerCountry() {
+		Map<String, List<MonthlyWeatherData>> countryWeatherData = new HashMap<>();
+
+		DATA.forEach(c -> {
+			var entry = countryWeatherData.getOrDefault(c.country(), new ArrayList<>());
+			entry.addAll(c.weatherData());
+			countryWeatherData.put(c.country(), entry);
+		});
+
+		for (var entry : countryWeatherData.entrySet()) {
+			String country = entry.getKey();
+			List<MonthlyWeatherData> weatherData = entry.getValue();
+
+			BigDecimal[] minTemperatures =
+				weatherData.stream().map(d -> BigDecimal.valueOf(d.minTemperature())).toArray(BigDecimal[]::new);
+			BigDecimal[] maxTemperatures =
+				weatherData.stream().map(d -> BigDecimal.valueOf(d.maxTemperature())).toArray(BigDecimal[]::new);
+
+			OperationsResult minTempPucrs = OperationsResult.of(PUCRS_CALC, minTemperatures);
+			OperationsResult minTempLib = OperationsResult.of(STD_CALC, minTemperatures);
+			OperationsResult maxTempPucrs = OperationsResult.of(PUCRS_CALC, maxTemperatures);
+			OperationsResult maxTempLib = OperationsResult.of(STD_CALC, maxTemperatures);
+
+			System.out.println(generateTable("%s - Temperatura mínima".formatted(country), minTempPucrs, minTempLib));
+			System.out.println(generateTable("%s - Temperatura máxima".formatted(country), maxTempPucrs, maxTempLib));
+		}
+	}
+
+	private static String generateTable(String title, OperationsResult pucrs, OperationsResult lib) {
+		StringBuilder table = new StringBuilder();
+		table.append(title).append("\n");
+		table.append("| Função                     | Resultado PUCRS            | Resultado lib              |\n");
+		table.append("| -------------------------- | -------------------------- | -------------------------- |\n");
+
+		table.append(formatTableRow("Média aritmética", pucrs.arithmeticMean(), lib.arithmeticMean()));
+		table.append(formatTableRow("Média geométrica", pucrs.geometricMean(), lib.geometricMean()));
+		table.append(formatTableRow("Média harmônica", pucrs.harmonicMean(), lib.harmonicMean()));
+		table.append(formatTableRow("Mediana", pucrs.median(), lib.median()));
+		table.append(formatTableRow("Amplitude", pucrs.amplitude(), lib.amplitude()));
+		table.append(formatTableRow("Variância amostral", pucrs.sampleVariance(), lib.sampleVariance()));
+		table.append(formatTableRow("Variância populacional", pucrs.populationVariance(), lib.populationVariance()));
+		table.append(formatTableRow("Desvio padrão amostral", pucrs.sampleStandardDeviation(), lib.sampleStandardDeviation()));
+		table.append(formatTableRow("Desvio padrão populacional", pucrs.populationStandardDeviation(), lib.populationStandardDeviation()));
+		table.append(formatTableRow("Q1 (1º Quartil)", pucrs.quartile1(), lib.quartile1()));
+		table.append(formatTableRow("Q2 (2º Quartil/Mediana)", pucrs.quartile2(), lib.quartile2()));
+		table.append(formatTableRow("Q3 (3º Quartil)", pucrs.quartile3(), lib.quartile3()));
+
+		return table.append("\n").toString();
+	}
+
+	private static String formatTableRow(String functionName, BigDecimal pucrsResult, BigDecimal libResult) {
+		return String.format("| %-26s | %-26s | %-26s |\n",
+												 functionName,
+												 formatDecimal(pucrsResult),
+												 formatDecimal(libResult)
+		);
+	}
+
+	private static String formatDecimal(BigDecimal value) {
+		return (value != null) ? value.stripTrailingZeros().toPlainString() : "N/A";
+	}
+
+	private record OperationsResult(
+		BigDecimal arithmeticMean,
+		BigDecimal geometricMean,
+		BigDecimal harmonicMean,
+		BigDecimal median,
+		BigDecimal amplitude,
+		BigDecimal sampleVariance,
+		BigDecimal populationVariance,
+		BigDecimal sampleStandardDeviation,
+		BigDecimal populationStandardDeviation,
+		BigDecimal quartile1,
+		BigDecimal quartile2,
+		BigDecimal quartile3) {
+
+		public static OperationsResult of(ProbabilityCalculator calc, BigDecimal... values) {
+			return new OperationsResult(calc.arithmeticMean(values),
+																	calc.geometricMean(values),
+																	calc.harmonicMean(values),
+																	calc.median(values),
+																	calc.amplitude(values),
+																	calc.sampleVariance(values),
+																	calc.populationVariance(values),
+																	calc.sampleStandardDeviation(values),
+																	calc.populationStandardDeviation(values),
+																	calc.quartile(Quartiles.Quartile.Q1, values),
+																	calc.quartile(Quartiles.Quartile.Q2, values),
+																	calc.quartile(Quartiles.Quartile.Q3, values)
+			);
+		}
 	}
 }

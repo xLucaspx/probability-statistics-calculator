@@ -1,5 +1,7 @@
 package probability.dispersion;
 
+import probability.Utils;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 
@@ -44,7 +46,7 @@ public final class StandardDeviation {
 	/**
 	 * Realiza o cálculo do desvio padrão para a variância passada como argumento.
 	 * Este método retorna o valor de {@link BigDecimal#sqrt(MathContext)} utilizando
-	 * o {@link probability.Utils#MATH_CONTEXT MathContext} da aplicação e chamando
+	 * o {@link Utils#MATH_CONTEXT MathContext} da aplicação e chamando
 	 * {@link BigDecimal#stripTrailingZeros()}.
 	 *
 	 * @param variance Valor sobre o qual ocorrerá o cálculo.

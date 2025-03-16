@@ -1,5 +1,7 @@
 package probability.dispersion;
 
+import probability.Utils;
+
 import java.math.BigDecimal;
 
 import static probability.Utils.max;
@@ -24,14 +26,10 @@ public final class Amplitude {
 	 * @return Valor correspondente à amplitude do conjunto.
 	 * @throws IllegalArgumentException Se o conjunto de dados informado for nulo
 	 *                                  ou vazio.
-	 * @throws NullPointerException     Se o conjunto de dados informado contiver
-	 *                                  valores nulos.
+	 * @see Utils#min(BigDecimal...)
+	 * @see Utils#max(BigDecimal...)
 	 */
 	public static BigDecimal amplitude(BigDecimal... values) {
-		if (values == null || values.length == 0) {
-			throw new IllegalArgumentException("O conjunto de dados informado não pode ser nulo ou vazio!");
-		}
-
 		BigDecimal max = max(values);
 		BigDecimal min = min(values);
 

@@ -40,6 +40,20 @@ public final class Utils {
 	}
 
 	/**
+	 * Retorna um array de {@code double} contendo os mesmos elementos do array
+	 * de {@link Number} passado como argumento, porém convertidos para o novo formato.
+	 *
+	 * @param values O array de referência.
+	 * @return Novo array contendo os mesmos elementos, convertidos para {@code double}.
+	 * @throws IllegalArgumentException Se o conjunto de dados informado for nulo.
+	 * @throws NullPointerException     Se o conjunto de dados informado contiver
+	 *                                  valores nulos.
+	 */
+	public static <T extends Number> double[] toDoubleArray(T... values) {
+		return Arrays.stream(values).mapToDouble(Number::doubleValue).toArray();
+	}
+
+	/**
 	 * Encontra o maior valor em um conjunto de dados.
 	 *
 	 * @param values Array de referência.

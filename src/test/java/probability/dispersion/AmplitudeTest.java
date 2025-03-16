@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
 
 import java.math.BigDecimal;
 import java.util.stream.Stream;
@@ -38,19 +37,17 @@ class AmplitudeTest {
 	}
 
 	/**
-	 * Fornece os argumentos de entrada para {@link #amplitudeTest3}.
+	 * Fornece os argumentos de entrada para {@link #amplitudeTest2}.
 	 *
 	 * @return Stream de argumentos onde cada elemento contém o array de entrada.
 	 */
-	static Stream<Arguments> amplitudeTest3Values() {
+	static Stream<Arguments> amplitudeTest2Values() {
 		return Stream.of(
+			Arguments.of((Object) null),
+			Arguments.of((Object) new BigDecimal[]{}),
 			Arguments.of((Object) new BigDecimal[]{null, BigDecimal.valueOf(2), null}),
-			Arguments.of((Object) new BigDecimal[]{
-				BigDecimal.valueOf(1), BigDecimal.valueOf(3), null, null, BigDecimal.valueOf(6)
-			}),
-			Arguments.of((Object) new BigDecimal[]{
-				BigDecimal.valueOf(3.9), null, BigDecimal.valueOf(23.15), BigDecimal.valueOf(42.21)
-			})
+			Arguments.of((Object) new BigDecimal[]{BigDecimal.valueOf(1), BigDecimal.valueOf(3), null, null, BigDecimal.valueOf(6)}),
+			Arguments.of((Object) new BigDecimal[]{BigDecimal.valueOf(3.9), null, BigDecimal.valueOf(23.15), BigDecimal.valueOf(42.21)})
 		);
 	}
 
@@ -64,16 +61,9 @@ class AmplitudeTest {
 	}
 
 	@ParameterizedTest
-	@NullAndEmptySource
-	@DisplayName("Deve lançar exceção para array nulo ou vazio")
-	void amplitudeTest2(BigDecimal[] in) {
-		assertThrows(IllegalArgumentException.class, () -> Amplitude.amplitude(in));
-	}
-
-	@ParameterizedTest
-	@MethodSource("amplitudeTest3Values")
-	@DisplayName("Deve lançar exceção para array com elementos nulos")
-	void amplitudeTest3(BigDecimal... in) {
+	@MethodSource("amplitudeTest2Values")
+	@DisplayName("Deve lançar exceção para array nulo, vazio ou com elementos nulos")
+	void amplitudeTest2(BigDecimal... in) {
 		assertThrows(NullPointerException.class, () -> Amplitude.amplitude(in));
 	}
 }

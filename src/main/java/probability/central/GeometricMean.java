@@ -2,6 +2,7 @@ package probability.central;
 
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import static probability.Utils.MATH_CONTEXT;
 
@@ -22,9 +23,14 @@ public final class GeometricMean {
 	 *
 	 * @param values Conjunto sobre o qual ocorrerá o cálculo; não pode ser vazio.
 	 * @return Valor correspondente à média geométrica do conjunto.
-	 * @throws ArithmeticException Se o conjunto de dados informado for vazio.
+	 * @throws ArithmeticException Se o conjunto de dados informado for vazio ou se
+	 *                             o conjunto contiver valores não positivos.
 	 */
 	public static BigDecimal geometricMean(BigDecimal... values) {
+		if (Arrays.stream(values).anyMatch(x -> x.compareTo(BigDecimal.valueOf(0.0)) <= 0)) {
+			throw new ArithmeticException("A média geométrica só é definida para números reais positivos");
+		}
+
 		BigDecimal multiply = BigDecimal.valueOf(1.0);
 		BigDecimal length = BigDecimal.valueOf(values.length);
 
