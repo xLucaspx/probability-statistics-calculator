@@ -8,12 +8,15 @@ import static probability.central.ArithmeticMean.arithmeticMean;
 
 /**
  * Fornece os métodos {@link #populationVariance} e {@link #sampleVariance}
- * ára realizar o cálculo da variância para um conjunto de valores reais.
+ * para realizar o cálculo da variância para um conjunto de valores reais.
  *
  * @author Lucas da Paz
  * @author Rodrigo Miotto Slongo
  */
-public class Variance {
+public final class Variance {
+
+	private Variance() {
+	}
 
 	/**
 	 * Realiza o cálculo de variância da população para o conjunto de dados

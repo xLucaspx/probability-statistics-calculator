@@ -8,6 +8,7 @@ ext {
 dependencies {
 	// This dependency is used by the application.
 	implementation "com.google.guava:guava:${versions.guava}"
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.3'
 
 	// Test
 	testImplementation "org.junit.jupiter:junit-jupiter:${versions.junit}"

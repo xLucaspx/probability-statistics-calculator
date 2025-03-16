@@ -13,15 +13,15 @@ import java.util.Comparator;
  */
 public final class Utils {
 
-	private Utils() {
-	}
-
 	/**
 	 * {@link MathContext} utilizado para divisões referentes ao método
 	 * {@link BigDecimal#divide(BigDecimal, MathContext)}; define precisão de 15
 	 * valores significativos e {@link RoundingMode#HALF_UP}.
 	 */
 	public static final MathContext MATH_CONTEXT = new MathContext(15, RoundingMode.HALF_UP);
+
+	private Utils() {
+	}
 
 	/**
 	 * Retorna um array de {@link BigDecimal} contendo os mesmos elementos do array
