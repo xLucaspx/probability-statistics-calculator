@@ -27,9 +27,9 @@ public final class HarmonicMean {
 	public static BigDecimal harmonicMean(BigDecimal... values) {
 		BigDecimal length = BigDecimal.valueOf(values.length);
 
-		BigDecimal somatoryResult = inverseNumbersSomatory(values);
+		BigDecimal summationResult = inverseNumbersSummation(values);
 
-		return length.divide(somatoryResult, MATH_CONTEXT).stripTrailingZeros();
+		return length.divide(summationResult, MATH_CONTEXT).stripTrailingZeros();
 	}
 
 	/**
@@ -39,7 +39,7 @@ public final class HarmonicMean {
 	 * @param values Conjunto sobre o qual ocorrerá o cálculo.
 	 * @return O resultado da soma do somatório.
 	 */
-	private static BigDecimal inverseNumbersSomatory(BigDecimal[] values) {
+	private static BigDecimal inverseNumbersSummation(BigDecimal[] values) {
 		return Arrays.stream(values).reduce(BigDecimal.valueOf(0.0), HarmonicMean::addFraction);
 	}
 

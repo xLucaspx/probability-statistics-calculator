@@ -25,15 +25,15 @@ public final class GeometricMean {
 	 * @throws ArithmeticException Se o conjunto de dados informado for vazio.
 	 */
 	public static BigDecimal geometricMean(BigDecimal... values) {
-		BigDecimal multply = BigDecimal.valueOf(1.0);
+		BigDecimal multiply = BigDecimal.valueOf(1.0);
 		BigDecimal length = BigDecimal.valueOf(values.length);
 
 		for (BigDecimal number : values) {
-			multply = multply.multiply(number);
+			multiply = multiply.multiply(number);
 		}
 
 		double oneOverN = BigDecimal.valueOf(1.0).divide(length, MATH_CONTEXT).doubleValue();
-		double geometricMean = Math.pow(multply.doubleValue(), oneOverN);
+		double geometricMean = Math.pow(multiply.doubleValue(), oneOverN);
 
 		return new BigDecimal(String.valueOf(geometricMean), MATH_CONTEXT).stripTrailingZeros();
 	}
