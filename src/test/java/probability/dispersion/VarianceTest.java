@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import probability.central.ArithmeticMean;
-import probability.dispersion.Variance;
 
 import java.math.BigDecimal;
 import java.util.stream.Stream;
