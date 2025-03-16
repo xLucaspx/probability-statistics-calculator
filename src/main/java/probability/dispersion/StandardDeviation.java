@@ -1,50 +1,56 @@
 package probability.dispersion;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 import static probability.Utils.MATH_CONTEXT;
 
 /**
- * Fornece o método {@link #populationStandardDeviation(BigDecimal...)} e
- * {@link #sampleStandardDeviation(BigDecimal...)} para realizar o
- * cálculo do desvio padrão para um conjunto de valores reais.
+ * Fornece os métodos {@link #populationStandardDeviation} e
+ * {@link #sampleStandardDeviation} para realizar o cálculo do
+ * desvio padrão para um conjunto de valores reais.
  *
  * @author Rodrigo Miotto Slongo
  */
-public class StandardDeviation {
+public final class StandardDeviation {
 
-	/**
-	 * Realiza o cálculo do desvio padrão amostral do conjunto de valores passado
-	 * como argumento.
-	 *
-	 * @param values Conjunto sobre o qual ocorrerá o cálculo; não pode ser vazio.
-	 * @return Valor correspondente à variância do conjunto.
-	 * @throws ArithmeticException Se o conjunto de dados informado for vazio ou de 1 elemento.
-	 */
-	public static BigDecimal sampleStandardDeviation(BigDecimal... values) {
-		return standardDeviation(Variance.sampleVariance(values));
+	private StandardDeviation() {
 	}
 
 	/**
-	 * Realiza o cálculo do desvio padrão amostral do conjunto de valores passado
-	 * como argumento.
+	 * Realiza o cálculo do desvio padrão da população para conjunto de valores
+	 * passado como argumento.
 	 *
 	 * @param values Conjunto sobre o qual ocorrerá o cálculo; não pode ser vazio.
-	 * @return Valor correspondente à variância do conjunto.
-	 * @throws ArithmeticException Se o conjunto de dados informado for vazio.
+	 * @return Valor correspondente ao desvio padrão populacional do conjunto.
+	 * @see Variance#populationVariance(BigDecimal...)
 	 */
 	public static BigDecimal populationStandardDeviation(BigDecimal... values) {
 		return standardDeviation(Variance.populationVariance(values));
 	}
 
 	/**
-	 * Realiza o cálculo do desvio padrão do valor passado como argumento
-	 * utilizando o parâmetro {@code value} informado.
+	 * Realiza o cálculo do desvio padrão da amostra para o conjunto de valores
+	 * passado como argumento.
 	 *
-	 * @param value Valor sobre o qual ocorrerá o cálculo; não pode ser vazio.
-	 * @return Valor correspondente ao desvio padrão.
+	 * @param values Conjunto sobre o qual ocorrerá o cálculo; não pode ser vazio.
+	 * @return Valor correspondente ao desvio padrão amostral do conjunto.
+	 * @see Variance#sampleVariance(BigDecimal...)
 	 */
-	public static BigDecimal standardDeviation(BigDecimal value) {
-		return value.sqrt(MATH_CONTEXT).stripTrailingZeros();
+	public static BigDecimal sampleStandardDeviation(BigDecimal... values) {
+		return standardDeviation(Variance.sampleVariance(values));
+	}
+
+	/**
+	 * Realiza o cálculo do desvio padrão para a variância passada como argumento.
+	 * Este método retorna o valor de {@link BigDecimal#sqrt(MathContext)} utilizando
+	 * o {@link probability.Utils#MATH_CONTEXT MathContext} da aplicação e chamando
+	 * {@link BigDecimal#stripTrailingZeros()}.
+	 *
+	 * @param variance Valor sobre o qual ocorrerá o cálculo.
+	 * @return Valor correspondente ao desvio padrão da variância informada.
+	 */
+	private static BigDecimal standardDeviation(BigDecimal variance) {
+		return variance.sqrt(MATH_CONTEXT).stripTrailingZeros();
 	}
 }
