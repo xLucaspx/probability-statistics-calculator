@@ -1,109 +1,64 @@
 package probability.dispersion;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 
 import static probability.Utils.MATH_CONTEXT;
 import static probability.Utils.sort;
 
 /**
- * Fornece os métodos {@link #quartile1}, {@link #quartile2} e
- * {@link #quartile3} para realizar o cálculo dos quartis de um conjunto de
- * valores reais.
+ * Fornece o métodos {@link #quartile(Quartile, BigDecimal...)} para realizar o
+ * cálculo dos quartis de um conjunto de valores reais.
  *
  * @author Bernardo Tarnowski Dallarosa
+ * @author Lucas da Paz
  */
 public final class Quartiles {
 
-    private Quartiles() {
-    }
+	private Quartiles() {
+	}
 
-    /**
-     * Calcula o primeiro quartil (Q1).
-     *
-     * @param values Conjunto sobre o qual ocorrerá o cálculo.
-     * @return Valor correspondente ao primeiro quartil.
-     * @throws IllegalArgumentException Se o conjunto de dados informado for
-     * nulo ou vazio.
-     * @throws NullPointerException Se o conjunto de dados informado contiver
-     * valores nulos.
-     */
-    public static BigDecimal quartile1(BigDecimal... values) {
-        return computePercentile(values, new BigDecimal(0.25));
-    }
+	/**
+	 * Calcula o quartil desejado para o conjunto de valores informado.
+	 *
+	 * @param q      O {@link Quartile quartil} desejado.
+	 * @param values Conjunto sobre o qual ocorrerá o cálculo; não pode ser vazio.
+	 * @return O valor correspondente ao quartil calculado.
+	 */
+	public static BigDecimal quartile(Quartile q, BigDecimal... values) {
+		if (values.length == 0) {
+			throw new IllegalArgumentException("O conjunto não pode ser vazio.");
+		}
 
-    /**
-     * Calcula o segundo quartil (Q2), que é a mediana.
-     *
-     * @param values Conjunto sobre o qual ocorrerá o cálculo.
-     * @return Valor correspondente ao segundo quartil.
-     * @throws IllegalArgumentException Se o conjunto de dados informado for
-     * nulo ou vazio.
-     * @throws NullPointerException Se o conjunto de dados informado contiver
-     * valores nulos.
-     */
-    public static BigDecimal quartile2(BigDecimal... values) {
-        return computePercentile(values, new BigDecimal(0.5));
-    }
+		BigDecimal[] sorted = sort(values);
+		BigDecimal position = BigDecimal.valueOf(sorted.length + 1).multiply(q.percentValue);
 
-    /**
-     * Calcula o terceiro quartil (Q3).
-     *
-     * @param values Conjunto sobre o qual ocorrerá o cálculo.
-     * @return Valor correspondente ao terceiro quartil.
-     * @throws IllegalArgumentException Se o conjunto de dados informado for
-     * nulo ou vazio.
-     * @throws NullPointerException Se o conjunto de dados informado contiver
-     * valores nulos.
-     */
-    public static BigDecimal quartile3(BigDecimal... values) {
-        return computePercentile(values, new BigDecimal(0.75));
-    }
+		return interpolate(position, sorted);
+	}
 
-    /**
-     * Método auxiliar para calcular um percentil específico de um conjunto de
-     * valores.
-     *
-     * @param values Conjunto de valores.
-     * @param percentile Percentual desejado (0.25 para Q1, 0.50 para Q2, 0.75
-     * para Q3).
-     * @return Cálculo feito pela interpolação.
-     */
-    private static BigDecimal computePercentile(BigDecimal[] values, BigDecimal percentile) {
-        if (values == null || values.length == 0) {
-            throw new IllegalArgumentException("O conjunto de dados informado não pode ser nulo ou vazio!");
-        }
+	/**
+	 * Cálculo da interpolação a partir dos valores ordenados e do índice informado.
+	 *
+	 * @param values   Conjunto de valores ordenados.
+	 * @param position Índice calculado.
+	 * @return Resultado da interpolação.
+	 */
+	private static BigDecimal interpolate(BigDecimal position, BigDecimal... values) {
+		int index = position.intValue();
+		BigDecimal fraction = position.remainder(BigDecimal.valueOf(1.0), MATH_CONTEXT);
 
-        if (Arrays.asList(values).contains(null)) {
-            throw new NullPointerException("O conjunto de dados informado não pode conter valores nulos!");
-        }
+		BigDecimal lower = values[index - 1];
+		BigDecimal upper = values[index];
 
-        BigDecimal[] sorted = sort(values);
-        Integer n = sorted.length;
+		return lower.add(fraction.multiply(upper.subtract(lower))).stripTrailingZeros();
+	}
 
-        BigDecimal position = BigDecimal.valueOf(n + 1).multiply(percentile);
+	public enum Quartile {
+		Q1("0.25"), Q2("0.5"), Q3("0.75");
 
-        return interpolate(sorted, position);
+		private final BigDecimal percentValue;
 
-    }
-
-    /**
-     * Cálculo da interpolação a partir dos valores ordenados e índice
-     * calculado.
-     *
-     * @param arr Conjunto de valores ordenados.
-     * @param position Posição calculada em {@link #computePercentile}.
-     * @return Resultado da interpolação.
-     */
-    private static BigDecimal interpolate(BigDecimal[] arr, BigDecimal position) {
-
-        Integer index = position.intValue();
-        BigDecimal fraction = position.remainder(BigDecimal.ONE, MATH_CONTEXT);
-
-        BigDecimal lower = arr[index - 1];
-        BigDecimal upper = arr[index];
-
-        return lower.add(fraction.multiply(upper.subtract(lower))).stripTrailingZeros();
-    }
-
+		Quartile(String percentValue) {
+			this.percentValue = new BigDecimal(percentValue);
+		}
+	}
 }
