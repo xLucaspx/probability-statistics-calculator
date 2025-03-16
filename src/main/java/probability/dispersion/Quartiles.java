@@ -3,6 +3,7 @@ package probability.dispersion;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
+import static probability.Utils.MATH_CONTEXT;
 import static probability.Utils.sort;
 
 /**
@@ -28,7 +29,7 @@ public final class Quartiles {
      * valores nulos.
      */
     public static BigDecimal quartile1(BigDecimal... values) {
-        return computePercentile(values, 0.25);
+        return computePercentile(values, new BigDecimal(0.25));
     }
 
     /**
@@ -42,7 +43,7 @@ public final class Quartiles {
      * valores nulos.
      */
     public static BigDecimal quartile2(BigDecimal... values) {
-        return computePercentile(values, 0.50);
+        return computePercentile(values, new BigDecimal(0.5));
     }
 
     /**
@@ -56,7 +57,7 @@ public final class Quartiles {
      * valores nulos.
      */
     public static BigDecimal quartile3(BigDecimal... values) {
-        return computePercentile(values, 0.75);
+        return computePercentile(values, new BigDecimal(0.75));
     }
 
     /**
@@ -66,9 +67,9 @@ public final class Quartiles {
      * @param values Conjunto de valores.
      * @param percentile Percentual desejado (0.25 para Q1, 0.50 para Q2, 0.75
      * para Q3).
-     * @return Valor do percentil especificado.
+     * @return Cálculo feito pela interpolação.
      */
-    private static BigDecimal computePercentile(BigDecimal[] values, double percentile) {
+    private static BigDecimal computePercentile(BigDecimal[] values, BigDecimal percentile) {
         if (values == null || values.length == 0) {
             throw new IllegalArgumentException("O conjunto de dados informado não pode ser nulo ou vazio!");
         }
@@ -78,25 +79,31 @@ public final class Quartiles {
         }
 
         BigDecimal[] sorted = sort(values);
-        int n = sorted.length;
+        Integer n = sorted.length;
 
-        BigDecimal position = BigDecimal.valueOf(n + 1).multiply(BigDecimal.valueOf(percentile));
+        BigDecimal position = BigDecimal.valueOf(n + 1).multiply(percentile);
 
-        int index = position.intValue(); // Parte inteira
-        BigDecimal fraction = position.remainder(BigDecimal.ONE); // Parte decimal
+        return interpolate(sorted, position);
 
-        if (index < 1) {
-            return sorted[0]; // Retorna o menor valor
-        } else if (index >= n) {
-            return sorted[n - 1]; // Retorna o maior valor
-        } else {
-            // Cálculo de interpolação
+    }
 
-            BigDecimal lower = sorted[index - 1];
-            BigDecimal upper = sorted[index];
+    /**
+     * Cálculo da interpolação a partir dos valores ordenados e índice
+     * calculado.
+     *
+     * @param arr Conjunto de valores ordenados.
+     * @param position Posição calculada em {@link #computePercentile}.
+     * @return Resultado da interpolação.
+     */
+    private static BigDecimal interpolate(BigDecimal[] arr, BigDecimal position) {
 
-            return lower.add(fraction.multiply(upper.subtract(lower))).stripTrailingZeros();
-        }
+        Integer index = position.intValue();
+        BigDecimal fraction = position.remainder(BigDecimal.ONE, MATH_CONTEXT);
+
+        BigDecimal lower = arr[index - 1];
+        BigDecimal upper = arr[index];
+
+        return lower.add(fraction.multiply(upper.subtract(lower))).stripTrailingZeros();
     }
 
 }
