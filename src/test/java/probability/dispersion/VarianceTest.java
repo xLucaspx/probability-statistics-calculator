@@ -38,9 +38,9 @@ public class VarianceTest {
 
 	@ParameterizedTest
 	@MethodSource("varianceTest1Values")
-	@DisplayName("Deve calcular a média aritmética")
+	@DisplayName("Deve calcular a variância amostral")
 	void varianceTest1(BigDecimal[] in, BigDecimal expected) {
-		BigDecimal actual = Variance.variance(in);
+		BigDecimal actual = Variance.sampleVariance(in);
 
 		assertEquals(expected, actual);
 	}
@@ -50,14 +50,15 @@ public class VarianceTest {
 	void varianceTest2() {
 		BigDecimal[] in = new BigDecimal[]{};
 
-		assertThrows(ArithmeticException.class, () -> Variance.variance(in));
+		assertThrows(ArithmeticException.class, () -> Variance.sampleVariance(in));
+		assertThrows(ArithmeticException.class, () -> Variance.populationVariance(in));
 	}
 
 	@Test
-	@DisplayName("Deve lançar exceção para array de 1 elemento")
+	@DisplayName("Deve lançar exceção para array unitário na variância amostral")
 	void varianceTest3() {
 		BigDecimal[] in = new BigDecimal[]{ new BigDecimal("1") };
 
-		assertThrows(ArithmeticException.class, () -> Variance.variance(in));
+		assertThrows(ArithmeticException.class, () -> Variance.sampleVariance(in));
 	}
 }
