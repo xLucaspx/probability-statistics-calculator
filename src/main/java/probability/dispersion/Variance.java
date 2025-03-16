@@ -16,7 +16,7 @@ import static probability.central.ArithmeticMean.arithmeticMean;
 public class Variance {
 
 	/**
-	 * Realiza o cálculo de variáncia da população para o conjunto de dados
+	 * Realiza o cálculo de variância da população para o conjunto de dados
 	 * passado como argumento.
 	 * <p>
 	 * <strong>Fórmula</strong>: &sigma;&sup2; = &sum;(xi - &mu;)&sup2; / N
@@ -38,7 +38,7 @@ public class Variance {
 	}
 
 	/**
-	 * Realiza o cálculo de variáncia da amostra para o conjunto de dados
+	 * Realiza o cálculo de variância da amostra para o conjunto de dados
 	 * passado como argumento.
 	 * <p>
 	 * <strong>Fórmula</strong>: s&sup2; = &sum;(xi - x&#772;)&sup2; / (n - 1)
@@ -70,9 +70,9 @@ public class Variance {
 	 */
 	private static BigDecimal variance(BigDecimal n, BigDecimal... values) {
 		BigDecimal arithmeticMean = arithmeticMean(values);
-		BigDecimal somatory = arithmeticMeanSomatory(arithmeticMean, values);
+		BigDecimal summation = arithmeticMeanSummation(arithmeticMean, values);
 
-		return somatory.divide(n, MATH_CONTEXT).stripTrailingZeros();
+		return summation.divide(n, MATH_CONTEXT).stripTrailingZeros();
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class Variance {
 	 * @param values         Conjunto sobre o qual ocorrerá o cálculo.
 	 * @return O resultado do somatório.
 	 */
-	private static BigDecimal arithmeticMeanSomatory(BigDecimal arithmeticMean, BigDecimal... values) {
+	private static BigDecimal arithmeticMeanSummation(BigDecimal arithmeticMean, BigDecimal... values) {
 		return Arrays.stream(values).map(x -> x.subtract(arithmeticMean).pow(2)).reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 }

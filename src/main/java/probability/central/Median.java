@@ -2,6 +2,7 @@ package probability.central;
 
 import java.math.BigDecimal;
 
+import static probability.Utils.MATH_CONTEXT;
 import static probability.Utils.sort;
 
 /**
@@ -57,7 +58,7 @@ public final class Median {
 		int i = values.length / 2;
 		BigDecimal n1 = values[i - 1];
 		BigDecimal n2 = values[i];
-		return n1.add(n2).divide(BigDecimal.valueOf(2));
+		return n1.add(n2).divide(BigDecimal.valueOf(2),MATH_CONTEXT);
 	}
 
 	/**

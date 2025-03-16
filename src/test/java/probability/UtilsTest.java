@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static probability.Utils.toBigDecimalArray;
 
 /**
- * Testa a classe de utiidades {@link Utils}.
+ * Testa a classe de utilidades {@link Utils}.
  *
  * @author Lucas da Paz
  */

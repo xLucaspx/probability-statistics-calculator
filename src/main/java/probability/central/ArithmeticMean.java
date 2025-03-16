@@ -16,7 +16,7 @@ public final class ArithmeticMean {
 	}
 
 	/**
-	 * Realiza o cálculo da media aritmética do conjunto de valores passado
+	 * Realiza o cálculo da média aritmética do conjunto de valores passado
 	 * como argumento.
 	 *
 	 * @param values Conjunto sobre o qual ocorrerá o cálculo; não pode ser vazio.
