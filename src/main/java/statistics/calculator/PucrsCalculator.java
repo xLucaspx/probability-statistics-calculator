@@ -36,7 +36,6 @@ public class PucrsCalculator implements StatisticsCalculator {
 		try {
 			return GeometricMean.geometricMean(values);
 		} catch (Exception e) {
-			e.printStackTrace();
 			return null;
 		}
 	}

@@ -2,7 +2,6 @@ package statistics.functions.central;
 
 import java.math.BigDecimal;
 
-import static statistics.Utils.MATH_CONTEXT;
 import static statistics.Utils.sort;
 import static statistics.functions.central.ArithmeticMean.arithmeticMean;
 
