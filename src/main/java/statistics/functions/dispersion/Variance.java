@@ -89,6 +89,8 @@ public final class Variance {
 	 * @return O resultado do somatório.
 	 */
 	private static BigDecimal arithmeticMeanSummation(BigDecimal arithmeticMean, BigDecimal... values) {
-		return Arrays.stream(values).map(x -> x.subtract(arithmeticMean).pow(2)).reduce(BigDecimal.ZERO, BigDecimal::add);
+		return Arrays.stream(values)
+			.map(x -> x.subtract(arithmeticMean).pow(2))
+			.reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 }

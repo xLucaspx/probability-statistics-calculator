@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static statistics.Utils.MATH_CONTEXT;
+
 public class App {
 
 	private static final StatisticsCalculator PUCRS_CALC = new PucrsCalculator();
@@ -28,7 +30,7 @@ public class App {
 
 	private static void header() {
 		System.out.println("\n--- Probabilidade e Estatística---\n");
-		System.out.printf("Base de dados: meteorológicos | Total de cidades: %s%n%n", DATA.size());
+		System.out.printf("Base de dados: meteorológicos | Total de cidades: %d%n%n", DATA.size());
 	}
 
 	private static void dataPerCountry() {
@@ -39,6 +41,8 @@ public class App {
 			entry.addAll(c.weatherData());
 			countryWeatherData.put(c.country(), entry);
 		});
+
+		System.out.printf("\tTotal de países: %d%n%n", countryWeatherData.size());
 
 		for (var entry : countryWeatherData.entrySet()) {
 			String country = entry.getKey();
@@ -62,8 +66,8 @@ public class App {
 	private static String generateTable(String title, OperationsResult pucrs, OperationsResult lib) {
 		StringBuilder table = new StringBuilder();
 		table.append(title).append("\n");
-		table.append("| Função                     | Resultado PUCRS            | Resultado lib              |\n");
-		table.append("| -------------------------- | -------------------------- | -------------------------- |\n");
+		table.append("| Função                     | Resultado PUCRS            | Resultado lib              | Diferença                  |\n");
+		table.append("| -------------------------- | -------------------------- | -------------------------- | -------------------------- |\n");
 
 		table.append(formatTableRow("Média aritmética", pucrs.arithmeticMean(), lib.arithmeticMean()));
 		table.append(formatTableRow("Média geométrica", pucrs.geometricMean(), lib.geometricMean()));
@@ -90,15 +94,20 @@ public class App {
 	}
 
 	private static String formatTableRow(String functionName, BigDecimal pucrsResult, BigDecimal libResult) {
-		return String.format("| %-26s | %-26s | %-26s |\n",
+		return String.format("| %-26s | %-26s | %-26s | %-26s |\n",
 												 functionName,
 												 formatDecimal(pucrsResult),
-												 formatDecimal(libResult)
+												 formatDecimal(libResult),
+												 formatDecimal(difference(pucrsResult, libResult))
 		);
 	}
 
 	private static String formatDecimal(BigDecimal value) {
 		return (value != null) ? value.stripTrailingZeros().toPlainString() : "N/A";
+	}
+
+	private static BigDecimal difference(BigDecimal pucrsResult, BigDecimal libResult) {
+		return pucrsResult != null && libResult != null ? pucrsResult.subtract(libResult).abs(MATH_CONTEXT) : null;
 	}
 
 	private record OperationsResult(

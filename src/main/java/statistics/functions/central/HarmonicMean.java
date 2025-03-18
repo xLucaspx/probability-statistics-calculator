@@ -48,7 +48,15 @@ public final class HarmonicMean {
 		return Arrays.stream(values).reduce(BigDecimal.valueOf(0.0), HarmonicMean::addFraction);
 	}
 
-	private static BigDecimal addFraction(BigDecimal sum, BigDecimal n) {
-		return sum.add(BigDecimal.valueOf(1).divide(n, MATH_CONTEXT));
+	/**
+	 * Adiciona o valor de {@code 1/x} ao valor de {@code sum}.
+	 *
+	 * @param sum O valor do somatório.
+	 * @param x   Elemento sendo adicionado.
+	 * @return Resultado de {@code sum + 1/x}.
+	 */
+	private static BigDecimal addFraction(BigDecimal sum, BigDecimal x) {
+		return sum.add(BigDecimal.valueOf(1).divide(x, MATH_CONTEXT));
 	}
 }
+

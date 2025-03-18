@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import static statistics.Utils.MATH_CONTEXT;
 import static statistics.Utils.sort;
+import static statistics.functions.central.ArithmeticMean.arithmeticMean;
 
 /**
  * Fornece o método {@link #median(BigDecimal...)} para realizar
@@ -58,7 +59,7 @@ public final class Median {
 		int i = values.length / 2;
 		BigDecimal n1 = values[i - 1];
 		BigDecimal n2 = values[i];
-		return n1.add(n2).divide(BigDecimal.valueOf(2), MATH_CONTEXT);
+		return arithmeticMean(n1, n2);
 	}
 
 	/**
