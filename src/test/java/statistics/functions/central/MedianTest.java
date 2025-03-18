@@ -32,7 +32,7 @@ class MedianTest {
 	static Stream<Arguments> medianTest1Values() {
 		return Stream.of(
 			Arguments.of(toBigDecimalArray(42), new BigDecimal("42")),
-			Arguments.of(toBigDecimalArray(1.0f, 2.0f, 4.0f), new BigDecimal("2.0")),
+			Arguments.of(toBigDecimalArray(1.0f, 2.0f, 4.0f), new BigDecimal("2")),
 			Arguments.of(toBigDecimalArray(5.0f, 3.9, 2L, 1.11, 143.99f), new BigDecimal("3.9")),
 			Arguments.of(toBigDecimalArray(12.4, 3.9, 12.125, 23.15, 1.119, 42.21), new BigDecimal("12.2625")),
 			Arguments.of(toBigDecimalArray(42.0, 29.7, 123.44, 0.02, 1.23, 2.676, 5.777, 16.9), new BigDecimal("11.3385"))

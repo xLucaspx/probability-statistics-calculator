@@ -1,7 +1,7 @@
 package statistics.data;
 
 /**
- * Represenda dados climáticos referentes a um {@link Month mês}.
+ * Representa dados climáticos referentes a um {@link Month mês}.
  *
  * @param month          O mês de referência para os dados.
  * @param minTemperature A temperatura mínima neste mês.

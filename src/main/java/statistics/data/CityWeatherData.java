@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Encapsula as infomações climáticas de uma cidade.
+ * Encapsula as informações climáticas de uma cidade.
  *
  * @param country     O país da cidade.
  * @param city        O nome da cidade.

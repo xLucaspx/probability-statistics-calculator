@@ -32,9 +32,9 @@ public final class Median {
 		BigDecimal[] sorted = sort(values);
 
 		if (length % 2 == 0) {
-			return medianEven(sorted);
+			return medianEven(sorted).stripTrailingZeros();
 		}
-		return medianOdd(sorted);
+		return medianOdd(sorted).stripTrailingZeros();
 	}
 
 	/**

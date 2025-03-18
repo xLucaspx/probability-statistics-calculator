@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static statistics.Utils.toBigDecimalArray;
 
 /**
- * Testa a classe {@link Variance}.
+ * Testa a classe {@link StandardDeviation}.
  *
  * @author Rodrigo Miotto Slongo
  */

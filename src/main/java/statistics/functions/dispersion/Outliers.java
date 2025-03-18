@@ -43,6 +43,6 @@ public final class Outliers {
 	}
 
 	public enum Bound {
-		LOWERBOUND, UPPERBOUND;
+		LOWERBOUND, UPPERBOUND
 	}
 }

@@ -1,7 +1,7 @@
 package statistics.data;
 
 /**
- * Exeção lançada se ocorrer algum erro durante a extração
+ * Exceção lançada se ocorrer algum erro durante a extração
  * das informações climáticas das cidades.
  *
  * @author Lucas da Paz
