@@ -46,6 +46,10 @@ public final class Quartiles {
 		int index = position.intValue();
 		BigDecimal fraction = position.remainder(BigDecimal.valueOf(1.0), MATH_CONTEXT);
 
+		if (fraction.compareTo(BigDecimal.valueOf(0.0)) == 0) {
+			return values[index - 1].stripTrailingZeros();
+		}
+
 		BigDecimal lower = values[index - 1];
 		BigDecimal upper = values[index];
 
