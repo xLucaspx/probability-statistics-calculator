@@ -1,6 +1,4 @@
-package probability.dispersion;
-
-import probability.dispersion.Quartiles.Quartile;
+package statistics.functions.dispersion;
 
 import java.math.BigDecimal;
 
@@ -34,14 +32,13 @@ public final class Outliers {
 			return new BigDecimal("0.0");
 		}
 
-		BigDecimal q1 = Quartiles.quartile(Quartile.Q1, values);
-		BigDecimal q3 = Quartiles.quartile(Quartile.Q3, values);
-		BigDecimal iqr = q3.subtract(q1);
-		BigDecimal multiply = iqr.multiply(new BigDecimal("1.5"));
+		BigDecimal q1 = Quartiles.quartile(Quartiles.Quartile.Q1, values);
+		BigDecimal q3 = Quartiles.quartile(Quartiles.Quartile.Q3, values);
+		BigDecimal iqrMultiplied = q3.subtract(q1).multiply(new BigDecimal("1.5"));
 
 		return switch (bound) {
-			case LOWERBOUND -> q1.subtract(multiply).stripTrailingZeros();
-			case UPPERBOUND -> q3.add(multiply).stripTrailingZeros();
+			case LOWERBOUND -> q1.subtract(iqrMultiplied).stripTrailingZeros();
+			case UPPERBOUND -> q3.add(iqrMultiplied).stripTrailingZeros();
 		};
 	}
 

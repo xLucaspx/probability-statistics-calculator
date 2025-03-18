@@ -1,6 +1,7 @@
 package statistics.calculator;
 
 import org.apache.commons.math3.stat.StatUtils;
+import statistics.functions.dispersion.Outliers;
 import statistics.functions.dispersion.Quartiles;
 
 import java.math.BigDecimal;
@@ -119,5 +120,17 @@ public class StdCalculator implements StatisticsCalculator {
 	public BigDecimal quartile(Quartiles.Quartile q, BigDecimal... values) {
 		double quartile = StatUtils.percentile(toDoubleArray(values), q.percentValue().doubleValue() * 100);
 		return BigDecimal.valueOf(quartile);
+	}
+
+	@Override
+	public BigDecimal outlier(Outliers.Bound bound, BigDecimal... values) {
+		BigDecimal q1 = quartile(Quartiles.Quartile.Q1, values);
+		BigDecimal q3 = quartile(Quartiles.Quartile.Q3, values);
+		BigDecimal iqrMultiplied = q3.subtract(q1).multiply(BigDecimal.valueOf(1.5));
+
+		return switch (bound) {
+			case LOWERBOUND -> q1.subtract(iqrMultiplied);
+			case UPPERBOUND -> q3.add(iqrMultiplied);
+		};
 	}
 }

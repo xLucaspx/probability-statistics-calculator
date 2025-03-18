@@ -1,5 +1,6 @@
 package statistics.calculator;
 
+import statistics.functions.dispersion.Outliers;
 import statistics.functions.dispersion.Quartiles;
 
 import java.math.BigDecimal;
@@ -92,4 +93,13 @@ public interface StatisticsCalculator {
 	 * @return O valor do quartil calculado para o conjunto.
 	 */
 	BigDecimal quartile(Quartiles.Quartile q, BigDecimal... values);
+
+	/**
+	 * Calcula o outlier informado.
+	 *
+	 * @param bound  Outlier que será calculado.
+	 * @param values Conjunto de valores.
+	 * @return O valor do outlier calculado para o conjunto.
+	 */
+	BigDecimal outlier(Outliers.Bound bound, BigDecimal... values);
 }

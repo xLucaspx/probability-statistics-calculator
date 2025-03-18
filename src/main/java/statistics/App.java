@@ -1,11 +1,12 @@
 package statistics;
 
-import statistics.calculator.StatisticsCalculator;
 import statistics.calculator.PucrsCalculator;
+import statistics.calculator.StatisticsCalculator;
 import statistics.calculator.StdCalculator;
 import statistics.data.CityWeatherData;
 import statistics.data.CityWeatherReader;
 import statistics.data.MonthlyWeatherData;
+import statistics.functions.dispersion.Outliers;
 import statistics.functions.dispersion.Quartiles;
 
 import java.math.BigDecimal;
@@ -71,11 +72,19 @@ public class App {
 		table.append(formatTableRow("Amplitude", pucrs.amplitude(), lib.amplitude()));
 		table.append(formatTableRow("Variância amostral", pucrs.sampleVariance(), lib.sampleVariance()));
 		table.append(formatTableRow("Variância populacional", pucrs.populationVariance(), lib.populationVariance()));
-		table.append(formatTableRow("Desvio padrão amostral", pucrs.sampleStandardDeviation(), lib.sampleStandardDeviation()));
-		table.append(formatTableRow("Desvio padrão populacional", pucrs.populationStandardDeviation(), lib.populationStandardDeviation()));
+		table.append(formatTableRow("Desvio padrão amostral",
+																pucrs.sampleStandardDeviation(),
+																lib.sampleStandardDeviation()
+		));
+		table.append(formatTableRow("Desvio padrão populacional",
+																pucrs.populationStandardDeviation(),
+																lib.populationStandardDeviation()
+		));
 		table.append(formatTableRow("Q1 (1º Quartil)", pucrs.quartile1(), lib.quartile1()));
 		table.append(formatTableRow("Q2 (2º Quartil/Mediana)", pucrs.quartile2(), lib.quartile2()));
 		table.append(formatTableRow("Q3 (3º Quartil)", pucrs.quartile3(), lib.quartile3()));
+		table.append(formatTableRow("Outlier inferior", pucrs.outlierLower(), lib.outlierLower()));
+		table.append(formatTableRow("Outlier supperior", pucrs.outlierUpper(), lib.outlierUpper()));
 
 		return table.append("\n").toString();
 	}
@@ -104,7 +113,10 @@ public class App {
 		BigDecimal populationStandardDeviation,
 		BigDecimal quartile1,
 		BigDecimal quartile2,
-		BigDecimal quartile3) {
+		BigDecimal quartile3,
+		BigDecimal outlierLower,
+		BigDecimal outlierUpper
+	) {
 
 		public static OperationsResult of(StatisticsCalculator calc, BigDecimal... values) {
 			return new OperationsResult(calc.arithmeticMean(values),
@@ -118,7 +130,9 @@ public class App {
 																	calc.populationStandardDeviation(values),
 																	calc.quartile(Quartiles.Quartile.Q1, values),
 																	calc.quartile(Quartiles.Quartile.Q2, values),
-																	calc.quartile(Quartiles.Quartile.Q3, values)
+																	calc.quartile(Quartiles.Quartile.Q3, values),
+																	calc.outlier(Outliers.Bound.LOWERBOUND, values),
+																	calc.outlier(Outliers.Bound.UPPERBOUND, values)
 			);
 		}
 	}

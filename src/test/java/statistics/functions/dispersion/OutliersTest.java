@@ -1,18 +1,17 @@
-package probability.dispersion;
+package statistics.functions.dispersion;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
-import probability.dispersion.Outliers.Bound;
 
 import java.math.BigDecimal;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static probability.Utils.toBigDecimalArray;
+import static statistics.Utils.toBigDecimalArray;
 
 /**
  * Testa a classe {@link Outliers}.
@@ -68,8 +67,8 @@ class OutliersTest {
 	@MethodSource("outliersTestValues")
 	@DisplayName("Deve identificar corretamente os outliers do array")
 	void outliersTest(BigDecimal[] in, BigDecimal lowerExpected, BigDecimal upperExpected) {
-		BigDecimal actualLowerBound = Outliers.outlier(Bound.LOWERBOUND, in);
-		BigDecimal actualUpperBound = Outliers.outlier(Bound.UPPERBOUND, in);
+		BigDecimal actualLowerBound = Outliers.outlier(Outliers.Bound.LOWERBOUND, in);
+		BigDecimal actualUpperBound = Outliers.outlier(Outliers.Bound.UPPERBOUND, in);
 
 		assertEquals(lowerExpected, actualLowerBound);
 		assertEquals(upperExpected, actualUpperBound);
@@ -79,15 +78,15 @@ class OutliersTest {
 	@NullAndEmptySource
 	@DisplayName("Deve lançar exceção para array nulo ou vazio")
 	void outliersTestNullAndEmptyArray(BigDecimal[] in) {
-		assertThrows(IllegalArgumentException.class, () -> Outliers.outlier(Bound.LOWERBOUND, in));
-		assertThrows(IllegalArgumentException.class, () -> Outliers.outlier(Bound.UPPERBOUND, in));
+		assertThrows(IllegalArgumentException.class, () -> Outliers.outlier(Outliers.Bound.LOWERBOUND, in));
+		assertThrows(IllegalArgumentException.class, () -> Outliers.outlier(Outliers.Bound.UPPERBOUND, in));
 	}
 
 	@ParameterizedTest
 	@MethodSource("outliersTestNullValues")
 	@DisplayName("Deve lançar exceção para array com mais de três posições e com elementos nulos")
 	void outliersTestNullValues(BigDecimal... in) {
-		assertThrows(NullPointerException.class, () -> Outliers.outlier(Bound.LOWERBOUND, in));
-		assertThrows(NullPointerException.class, () -> Outliers.outlier(Bound.UPPERBOUND, in));
+		assertThrows(NullPointerException.class, () -> Outliers.outlier(Outliers.Bound.LOWERBOUND, in));
+		assertThrows(NullPointerException.class, () -> Outliers.outlier(Outliers.Bound.UPPERBOUND, in));
 	}
 }

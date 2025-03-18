@@ -5,6 +5,7 @@ import statistics.functions.central.GeometricMean;
 import statistics.functions.central.HarmonicMean;
 import statistics.functions.central.Median;
 import statistics.functions.dispersion.Amplitude;
+import statistics.functions.dispersion.Outliers;
 import statistics.functions.dispersion.Quartiles;
 import statistics.functions.dispersion.StandardDeviation;
 import statistics.functions.dispersion.Variance;
@@ -105,5 +106,13 @@ public class PucrsCalculator implements StatisticsCalculator {
 	@Override
 	public BigDecimal quartile(Quartiles.Quartile q, BigDecimal... values) {
 		return Quartiles.quartile(q, values);
+	}
+
+	/**
+	 * @see Outliers#outlier(Outliers.Bound, BigDecimal...)
+	 */
+	@Override
+	public BigDecimal outlier(Outliers.Bound bound, BigDecimal... values) {
+		return Outliers.outlier(bound, values);
 	}
 }
