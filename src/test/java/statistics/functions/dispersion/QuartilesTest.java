@@ -33,6 +33,11 @@ class QuartilesTest {
 	 */
 	static Stream<Arguments> quartilesTestValues() {
 		return Stream.of(
+			Arguments.of(toBigDecimalArray(1, 2, 3),
+									 new BigDecimal("1"),
+									 new BigDecimal("2"),
+									 new BigDecimal("3")
+			),
 			Arguments.of(toBigDecimalArray(15.0, 5.0, 18.0, 7.0, 12.0, 20.0, 10.0),
 									 new BigDecimal("7"),
 									 new BigDecimal("12"),
@@ -82,8 +87,12 @@ class QuartilesTest {
 		return Stream.of(
 			Arguments.of((Object) null),
 			Arguments.of((Object) new BigDecimal[]{null, BigDecimal.valueOf(2), null}),
-			Arguments.of((Object) new BigDecimal[]{BigDecimal.valueOf(1), BigDecimal.valueOf(3), null, null, BigDecimal.valueOf(6)}),
-			Arguments.of((Object) new BigDecimal[]{BigDecimal.valueOf(3.9), null, BigDecimal.valueOf(23.15), BigDecimal.valueOf(42.21)})
+			Arguments.of((Object) new BigDecimal[]{
+				BigDecimal.valueOf(1), BigDecimal.valueOf(3), null, null, BigDecimal.valueOf(6)
+			}),
+			Arguments.of((Object) new BigDecimal[]{
+				BigDecimal.valueOf(3.9), null, BigDecimal.valueOf(23.15), BigDecimal.valueOf(42.21)
+			})
 		);
 	}
 

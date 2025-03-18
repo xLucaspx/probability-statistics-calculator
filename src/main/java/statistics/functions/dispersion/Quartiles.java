@@ -37,6 +37,8 @@ public final class Quartiles {
 
 	/**
 	 * Cálculo da interpolação a partir dos valores ordenados e do índice informado.
+	 * Se a posição não for um número real, retorna o valor em {@code index - 1} (pois
+	 * os conjuntos, em Java, começam em {@code 0}).
 	 *
 	 * @param values   Conjunto de valores ordenados.
 	 * @param position Índice calculado.

@@ -44,7 +44,7 @@ class OutliersTest {
 									 new BigDecimal("10011.5")
 			),
 			Arguments.of(toBigDecimalArray(1.0, 2.0, 3.0, 4.0, 5.0), new BigDecimal("-3"), new BigDecimal("9")),
-			Arguments.of(toBigDecimalArray(1.0, 2.0, 3.0), new BigDecimal("0.0"), new BigDecimal("0.0"))
+			Arguments.of(toBigDecimalArray(1, 2, 3), new BigDecimal("-2"), new BigDecimal("6"))
 		);
 	}
 

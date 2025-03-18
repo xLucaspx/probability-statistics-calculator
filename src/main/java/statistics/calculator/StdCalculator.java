@@ -118,7 +118,8 @@ public class StdCalculator implements StatisticsCalculator {
 	 */
 	@Override
 	public BigDecimal quartile(Quartiles.Quartile q, BigDecimal... values) {
-		double quartile = StatUtils.percentile(toDoubleArray(values), q.percentValue().doubleValue() * 100);
+		double quartileAsPercentile = q.percentValue().doubleValue() * 100;
+		double quartile = StatUtils.percentile(toDoubleArray(values), quartileAsPercentile);
 		return BigDecimal.valueOf(quartile);
 	}
 

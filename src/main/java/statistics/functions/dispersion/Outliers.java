@@ -21,15 +21,12 @@ public final class Outliers {
 	 * @param bound  Determina qual limite (inferior ou superior) é analisado.
 	 * @param values Conjunto de valores a serem analisados.
 	 * @return Outlier calculado.
+	 * @throws IllegalArgumentException Se o conjunto informado for nulo ou vazio.
 	 * @see Bound
 	 */
 	public static BigDecimal outlier(Bound bound, BigDecimal... values) {
 		if (values == null || values.length == 0) {
 			throw new IllegalArgumentException("O conjunto de dados informado não pode ser nulo ou vazio!");
-		}
-
-		if (values.length <= 3) {
-			return new BigDecimal("0.0");
 		}
 
 		BigDecimal q1 = Quartiles.quartile(Quartiles.Quartile.Q1, values);
