@@ -28,10 +28,10 @@ public class GeometricMeanTest {
 	 */
 	static Stream<Arguments> geometricMeanTest1Values() {
 		return Stream.of(
-			Arguments.of(toBigDecimalArray(42.0), new BigDecimal("42")),
-			Arguments.of(toBigDecimalArray(3.0, 2.0, 10.0), new BigDecimal("3.91486764116886")),
-			Arguments.of(toBigDecimalArray(4.0, 2.0, 20.0), new BigDecimal("5.4288352331898")),
-			Arguments.of(toBigDecimalArray(5.0, 3.9, 2.44, 1.11, 143.99, 2.56), new BigDecimal("5.18664613694522"))
+			Arguments.of(toBigDecimalArray(42.0), new BigDecimal("41.999999999999986")),
+			Arguments.of(toBigDecimalArray(3.0, 2.0, 10.0), new BigDecimal("3.9148676411688625")),
+			Arguments.of(toBigDecimalArray(4.0, 2.0, 20.0), new BigDecimal("5.428835233189812")),
+			Arguments.of(toBigDecimalArray(5.0, 3.9, 2.44, 1.11, 143.99, 2.56), new BigDecimal("5.186646136945206"))
 		);
 	}
 

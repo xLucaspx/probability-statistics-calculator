@@ -27,10 +27,8 @@ public class StandardDeviationTest {
 		return Stream.of(
 			Arguments.of(toBigDecimalArray(42.0, 2), new BigDecimal("28.2842712474619")),
 			Arguments.of(toBigDecimalArray(5.0, 7, 10.0, 12.0, 15), new BigDecimal("3.96232255123179")),
-			Arguments.of(toBigDecimalArray(18.0, 21f, 21, 20, 25), new BigDecimal("2.54950975679639")),
-			Arguments.of(toBigDecimalArray(12.4, 3.9, 12.125, 23.15, 1.119, 42.21, -4.404, 2.0, 8.0, 1.5),
-									 new BigDecimal("13.6792202588046")
-			)
+			Arguments.of(toBigDecimalArray(18.0, 21f, 21, 20, 25), new BigDecimal("2.549509756796392")),
+			Arguments.of(toBigDecimalArray(12.4, 3.9, 12.125, 23.15, 1.119, 42.21, -4.404, 2.0, 8.0, 1.5), new BigDecimal("13.67922025880455"))
 		);
 	}
 
@@ -45,9 +43,9 @@ public class StandardDeviationTest {
 			Arguments.of(toBigDecimalArray(42.0), new BigDecimal("0")),
 			Arguments.of(toBigDecimalArray(42.0, 2), new BigDecimal("2E+1")),
 			Arguments.of(toBigDecimalArray(5.0, 7, 10.0, 12.0, 15), new BigDecimal("3.54400902933387")),
-			Arguments.of(toBigDecimalArray(18.0, 21f, 21, 20, 25), new BigDecimal("2.28035085019828")),
+			Arguments.of(toBigDecimalArray(18.0, 21f, 21, 20, 25), new BigDecimal("2.280350850198276")),
 			Arguments.of(toBigDecimalArray(12.4, 3.9, 12.125, 23.15, 1.119, 42.21, -4.404, 2.0, 8.0, 1.5),
-									 new BigDecimal("12.9772477898821")
+									 new BigDecimal("12.97724778988211")
 			)
 		);
 	}

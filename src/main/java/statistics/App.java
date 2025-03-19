@@ -36,13 +36,18 @@ public class App {
 	private static void dataPerCountry() {
 		Map<String, List<MonthlyWeatherData>> countryWeatherData = new HashMap<>();
 
-		DATA.forEach(c -> {
-			var entry = countryWeatherData.getOrDefault(c.country(), new ArrayList<>());
-			entry.addAll(c.weatherData());
-			countryWeatherData.put(c.country(), entry);
-		});
+		System.out.println("Cidades brasileiras:");
+		DATA.stream()
+			.filter(c -> "Brazil".equals(c.country()))
+			.forEach(c -> {
+				System.out.printf("\t- %s%n", c.city());
+				var entry = countryWeatherData.getOrDefault(c.country(), new ArrayList<>());
+				entry.addAll(c.weatherData());
+				countryWeatherData.put(c.country(), entry);
+			});
 
-		System.out.printf("\tTotal de países: %d%n%n", countryWeatherData.size());
+		System.out.println();
+		// System.out.printf("\tTotal de países: %d%n%n", countryWeatherData.size());
 
 		for (var entry : countryWeatherData.entrySet()) {
 			String country = entry.getKey();
@@ -52,22 +57,34 @@ public class App {
 				weatherData.stream().map(d -> BigDecimal.valueOf(d.minTemperature())).toArray(BigDecimal[]::new);
 			BigDecimal[] maxTemperatures =
 				weatherData.stream().map(d -> BigDecimal.valueOf(d.maxTemperature())).toArray(BigDecimal[]::new);
+			BigDecimal[] rainyDays =
+				weatherData.stream().map(d -> BigDecimal.valueOf(d.rainyDays())).toArray(BigDecimal[]::new);
+			BigDecimal[] precipitation =
+				weatherData.stream().map(d -> BigDecimal.valueOf(d.precipitation())).toArray(BigDecimal[]::new);
 
 			OperationsResult minTempPucrs = OperationsResult.of(PUCRS_CALC, minTemperatures);
 			OperationsResult minTempLib = OperationsResult.of(STD_CALC, minTemperatures);
 			OperationsResult maxTempPucrs = OperationsResult.of(PUCRS_CALC, maxTemperatures);
 			OperationsResult maxTempLib = OperationsResult.of(STD_CALC, maxTemperatures);
+			OperationsResult rainyDaysPucrs = OperationsResult.of(PUCRS_CALC, rainyDays);
+			OperationsResult rainyDaysLib = OperationsResult.of(STD_CALC, rainyDays);
+			OperationsResult precipitationPucrs = OperationsResult.of(PUCRS_CALC, precipitation);
+			OperationsResult precipitationLib = OperationsResult.of(STD_CALC, precipitation);
 
 			System.out.println(generateTable("%s - Temperatura mínima".formatted(country), minTempPucrs, minTempLib));
 			System.out.println(generateTable("%s - Temperatura máxima".formatted(country), maxTempPucrs, maxTempLib));
+			System.out.println(generateTable("%s - Dias de chuva".formatted(country), rainyDaysPucrs, rainyDaysLib));
+			System.out.println(generateTable("%s - Precipitação".formatted(country), precipitationPucrs, precipitationLib));
 		}
 	}
 
 	private static String generateTable(String title, OperationsResult pucrs, OperationsResult lib) {
 		StringBuilder table = new StringBuilder();
 		table.append(title).append("\n");
-		table.append("| Função                     | Resultado PUCRS            | Resultado lib              | Diferença                  |\n");
-		table.append("| -------------------------- | -------------------------- | -------------------------- | -------------------------- |\n");
+		table.append("| %-26s | %-26s | %-26s | %-26s |\n"
+									 .formatted("Função", "Resultado PUCRS", "Resultado Apache", "Diferença"));
+		String separator = "--------------------------";
+		table.append("| %s | %s | %s | %s |\n".formatted(separator, separator, separator, separator));
 
 		table.append(formatTableRow("Média aritmética", pucrs.arithmeticMean(), lib.arithmeticMean()));
 		table.append(formatTableRow("Média geométrica", pucrs.geometricMean(), lib.geometricMean()));

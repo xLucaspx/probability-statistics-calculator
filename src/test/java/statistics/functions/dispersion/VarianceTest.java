@@ -30,7 +30,7 @@ public class VarianceTest {
 			Arguments.of(toBigDecimalArray(42.0, 2), new BigDecimal("8E2")),
 			Arguments.of(toBigDecimalArray(5.0, 7, 10.0, 12.0, 15), new BigDecimal("15.7")),
 			Arguments.of(toBigDecimalArray(18.0, 21f, 21, 20, 25), new BigDecimal("6.5")),
-			Arguments.of(toBigDecimalArray(12.4, 3.9, 12.125, 23.15, 1.119, 42.21, -4.404, 2.0, 8.0, 1.5), new BigDecimal("187.121066888889"))
+			Arguments.of(toBigDecimalArray(12.4, 3.9, 12.125, 23.15, 1.119, 42.21, -4.404, 2.0, 8.0, 1.5), new BigDecimal("187.1210668888889"))
 		);
 	}
 

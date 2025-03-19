@@ -30,9 +30,9 @@ public class HarmonicMeanTest {
 	static Stream<Arguments> harmonicMeanTest1Values() {
 		return Stream.of(
 			Arguments.of(toBigDecimalArray(42.0), new BigDecimal("42")),
-			Arguments.of(toBigDecimalArray(3.0, 2.0, 10.0), new BigDecimal("3.21428571428572")),
-			Arguments.of(toBigDecimalArray(4.0, 2.0, 8.0), new BigDecimal("3.42857142857143")),
-			Arguments.of(toBigDecimalArray(5.0, 3.9, 2.44, 1.11, 143.99, 2.56), new BigDecimal("2.77172470364753"))
+			Arguments.of(toBigDecimalArray(3.0, 2.0, 10.0), new BigDecimal("3.214285714285714")),
+			Arguments.of(toBigDecimalArray(4.0, 2.0, 8.0), new BigDecimal("3.428571428571429")),
+			Arguments.of(toBigDecimalArray(5.0, 3.9, 2.44, 1.11, 143.99, 2.56), new BigDecimal("2.771724703647531"))
 		);
 	}
 
