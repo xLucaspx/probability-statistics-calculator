@@ -25,7 +25,7 @@ configurations {
 }
 
 application {
-	mainClass = 'probability.App'
+	mainClass = 'statistics.App'
 }
 
 repositories {
