@@ -13,16 +13,17 @@
 
 - [x] Criar repositório;
 - [x] Escolher base de dados;
-- [ ] Implementar funções estatísticas:
+- [x] Implementar funções estatísticas:
   - [x] Média aritmética/harmônica/geométrica;
   - [x] Mediana;
   - [x] Amplitude;
   - [x] Variância amostral e populacional;
   - [x] Desvio padrão amostral e populacional;
   - [x] Quartis (Q1, Q2 e Q3);
-  - [ ] Outliers (usando IQR - intervalo interquartil).
-- [ ] Testes automatizados;
-- [ ] Documentação;
-- [ ] Comparação com funções nativas;
-- [ ] Relatório;
-- [ ] Slides para apresentação;
+  - [x] Outliers (usando IQR - intervalo interquartil).
+- [x] Testes automatizados;
+- [x] Documentação;
+- [x] Comparação com funções nativas;
+- [x] Relatório;
+- [x] Slides para apresentação;
+
